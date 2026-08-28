@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PhotoSlot } from '../types';
+import { getPhotoFilterStyle } from './PhotoCard';
 import { X, Upload, RotateCw, ZoomIn, ZoomOut, Check, Sliders, Trash2 } from 'lucide-react';
 
 interface PhotoEditorModalProps {
@@ -89,7 +90,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
               <img
                 src={current.url}
                 alt="Предпросмотр"
-                className="w-full h-full object-contain select-none"
+                className={`w-full h-full object-contain select-none ${getPhotoFilterStyle(current.filter)}`}
               />
             </div>
           ) : (

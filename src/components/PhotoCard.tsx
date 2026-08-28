@@ -3,6 +3,26 @@ import { PhotoSlot, LayoutStyle } from '../types';
 import { PHOTO_PLACEHOLDERS } from '../data/defaultPhotos';
 import { Upload, RotateCw, ZoomIn, Sparkles, Edit3 } from 'lucide-react';
 
+// Photo filter styles (shared with the editor preview)
+export const getPhotoFilterStyle = (filter: PhotoSlot['filter']) => {
+  switch (filter) {
+    case 'vivid':
+      return 'saturate-150 contrast-110';
+    case 'warm':
+      return 'sepia-50 saturate-125 brightness-105 hue-rotate-[-5deg]';
+    case 'vintage':
+      return 'sepia-50 contrast-95 brightness-95';
+    case 'bw':
+      return 'grayscale contrast-120';
+    case 'festive':
+      return 'saturate-140 brightness-110 contrast-105';
+    case 'soft':
+      return 'contrast-90 brightness-105 saturate-110';
+    default:
+      return '';
+  }
+};
+
 interface PhotoCardProps {
   photo: PhotoSlot;
   index: number;
@@ -32,26 +52,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       onUpload(photo.id, e.target.files[0]);
-    }
-  };
-
-  // Filter styles
-  const getFilterStyle = (filter: PhotoSlot['filter']) => {
-    switch (filter) {
-      case 'vivid':
-        return 'saturate-150 contrast-110';
-      case 'warm':
-        return 'sepia-25 saturate-125 brightness-105 hue-rotate-[-5deg]';
-      case 'vintage':
-        return 'sepia-50 contrast-95 brightness-95';
-      case 'bw':
-        return 'grayscale contrast-120';
-      case 'festive':
-        return 'saturate-140 brightness-110 contrast-105';
-      case 'soft':
-        return 'contrast-90 brightness-105 saturate-110';
-      default:
-        return '';
     }
   };
 
@@ -116,7 +116,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
               alt={photo.caption || `Фото #${index + 1}`}
               crossOrigin="anonymous"
               referrerPolicy="no-referrer"
-              className={`w-full h-full object-cover select-none pointer-events-none ${getFilterStyle(photo.filter)}`}
+              className={`w-full h-full object-cover select-none pointer-events-none ${getPhotoFilterStyle(photo.filter)}`}
             />
           </div>
         ) : (
