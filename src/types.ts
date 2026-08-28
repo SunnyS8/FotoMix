@@ -9,6 +9,10 @@ export interface PhotoSlot {
   filter: 'none' | 'vivid' | 'warm' | 'vintage' | 'bw' | 'festive' | 'soft';
 }
 
+// Selectable number of photos in the collage
+export const PHOTO_COUNT_OPTIONS = [3, 4, 5, 6, 7, 9, 12];
+export const MAX_PHOTOS = Math.max(...PHOTO_COUNT_OPTIONS);
+
 export interface StickerItem {
   id: string;
   type: 'emoji' | 'badge' | 'ribbon' | 'decor' | 'hat' | 'cake';

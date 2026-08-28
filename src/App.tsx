@@ -11,6 +11,8 @@ import {
   BirthdayTextConfig,
   LayoutStyle,
   BackgroundStyle,
+  PHOTO_COUNT_OPTIONS,
+  MAX_PHOTOS,
 } from './types';
 import { DEFAULT_PHOTOS } from './data/defaultPhotos';
 import { INITIAL_STICKERS, THEMES } from './data/templates';
@@ -36,8 +38,29 @@ function captionFromFileName(file: File): string {
   return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
 }
 
+// Builds the master list of photo slots (defaults + extra empty slots so the
+// user can scale the collage up to MAX_PHOTOS without losing edited data).
+function buildMasterPhotos(): PhotoSlot[] {
+  const extra: PhotoSlot[] = [];
+  for (let i = DEFAULT_PHOTOS.length + 1; i <= MAX_PHOTOS; i++) {
+    extra.push({
+      id: `photo-${i}`,
+      url: '',
+      caption: '',
+      zoom: 1,
+      rotation: 0,
+      offsetX: 0,
+      offsetY: 0,
+      filter: 'festive',
+    });
+  }
+  return [...DEFAULT_PHOTOS, ...extra];
+}
+
 export default function App() {
-  const [photos, setPhotos] = useState<PhotoSlot[]>(DEFAULT_PHOTOS);
+  const [allPhotos, setAllPhotos] = useState<PhotoSlot[]>(buildMasterPhotos);
+  const [photoCount, setPhotoCount] = useState<number>(7);
+  const photos = allPhotos.slice(0, photoCount);
   const [layout, setLayout] = useState<LayoutStyle>('mosaic-hero');
   const [background, setBackground] = useState<BackgroundStyle>('dark-gold');
   const [heroPhotoId, setHeroPhotoId] = useState<string>('photo-7');
@@ -89,7 +112,7 @@ export default function App() {
 
   const handleUploadSinglePhoto = (id: string, file: File) => {
     const url = URL.createObjectURL(file);
-    setPhotos((prev) =>
+    setAllPhotos((prev) =>
       prev.map((p) => (p.id === id ? { ...p, url, caption: captionFromFileName(file) } : p))
     );
     soundFX.playPop();
@@ -97,9 +120,9 @@ export default function App() {
 
   const handleBatchUpload = (files: FileList) => {
     const fileArray = Array.from(files);
-    setPhotos((prev) => {
+    setAllPhotos((prev) => {
       return prev.map((p, idx) => {
-        if (fileArray[idx]) {
+        if (fileArray[idx] && idx < photoCount) {
           return {
             ...p,
             url: URL.createObjectURL(fileArray[idx]),
@@ -119,7 +142,16 @@ export default function App() {
   };
 
   const handleSavePhotoEdits = (updated: PhotoSlot) => {
-    setPhotos((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    setAllPhotos((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    soundFX.playPop();
+  };
+
+  const handlePhotoCountChange = (n: number) => {
+    setPhotoCount(n);
+    const ids = allPhotos.slice(0, n).map((p) => p.id);
+    if (!ids.includes(heroPhotoId)) {
+      setHeroPhotoId(ids[ids.length - 1]);
+    }
     soundFX.playPop();
   };
 
@@ -191,6 +223,8 @@ export default function App() {
       <Toolbar
         layout={layout}
         background={background}
+        photoCount={photoCount}
+        onChangePhotoCount={handlePhotoCountChange}
         onChangeLayout={handleLayoutChange}
         onChangeBackground={setBackground}
         onOpenStickers={() => setIsStickersOpen(true)}

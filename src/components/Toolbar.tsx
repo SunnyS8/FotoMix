@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { THEMES, BACKGROUNDS } from '../data/templates';
-import { LayoutStyle, BackgroundStyle } from '../types';
+import { LayoutStyle, BackgroundStyle, PHOTO_COUNT_OPTIONS } from '../types';
 import {
   Sparkles,
   Layout,
@@ -20,6 +20,8 @@ import {
 interface ToolbarProps {
   layout: LayoutStyle;
   background: BackgroundStyle;
+  photoCount: number;
+  onChangePhotoCount: (n: number) => void;
   onChangeLayout: (layout: LayoutStyle) => void;
   onChangeBackground: (bg: BackgroundStyle) => void;
   onOpenStickers: () => void;
@@ -33,6 +35,8 @@ interface ToolbarProps {
 export const Toolbar: React.FC<ToolbarProps> = ({
   layout,
   background,
+  photoCount,
+  onChangePhotoCount,
   onChangeLayout,
   onChangeBackground,
   onOpenStickers,
@@ -81,7 +85,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               Праздничный Коллаж
             </h2>
             <p className="text-xs text-amber-600 font-medium">
-              Праздничный коллаж • 7 памятных фото
+              Праздничный коллаж • {photoCount} памятных фото
             </p>
           </div>
         </div>
@@ -128,6 +132,31 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <Download size={16} />
             <span>Скачать коллаж</span>
           </button>
+        </div>
+      </div>
+
+      {/* Photo Count Selector */}
+      <div className="bg-white/60 border border-slate-200 px-3.5 py-2.5 rounded-2xl flex flex-wrap items-center justify-between gap-2 shadow-sm">
+        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+          <ImageIcon size={13} className="text-amber-400" />
+          <span>Сколько фото в коллаже:</span>
+        </span>
+
+        <div className="flex items-center flex-wrap gap-1.5">
+          {PHOTO_COUNT_OPTIONS.map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => onChangePhotoCount(n)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                photoCount === n
+                  ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-500/20 ring-1 ring-amber-300'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-800 border border-slate-200'
+              }`}
+            >
+              {n}
+            </button>
+          ))}
         </div>
       </div>
 

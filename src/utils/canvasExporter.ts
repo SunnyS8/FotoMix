@@ -111,7 +111,7 @@ export async function renderCollageDirectCanvas(
 
   // Main Header Title
   const titleY = data.textConfig.badgeText ? 150 : 110;
-  ctx.font = '900 68px "Russo One", "Montserrat", sans-serif';
+  ctx.font = `900 68px "${data.textConfig.fontFamily}", "Montserrat", sans-serif`;
   
   // Gold title gradient
   const titleGrad = ctx.createLinearGradient(width / 2 - 300, 0, width / 2 + 300, 0);
@@ -142,29 +142,35 @@ export async function renderCollageDirectCanvas(
   const heroPhoto = data.photos.find((p) => p.id === data.heroPhotoId) || data.photos[data.photos.length - 1];
   const sidePhotos = data.photos.filter((p) => p.id !== heroPhoto.id);
 
-  // 7 photo slots coordinates
+  // Dynamic slots: hero on the left (spans full height), sides in a 2-col grid on the right
+  const sideCols = 2;
+  const sideRows = Math.max(1, Math.ceil(sidePhotos.length / sideCols));
+  const sideGap = 30;
   const slotWidth = (gridW - 60) / 4;
-  const slotHeight = (gridH - 30) / 2;
+  const slotHeight = (gridH - (sideRows - 1) * sideGap) / sideRows;
 
-  // Center Hero (spans 2 cols)
-  const heroX = gridX + slotWidth + 20;
+  const heroX = gridX;
   const heroY = gridY;
   const heroW = slotWidth * 2 + 20;
   const heroH = gridH;
 
   // Slot rects
-  const photoSlots = [
-    { photo: sidePhotos[0], x: gridX, y: gridY, w: slotWidth, h: slotHeight },
-    { photo: sidePhotos[1], x: gridX, y: gridY + slotHeight + 30, w: slotWidth, h: slotHeight },
-    { photo: sidePhotos[2], x: gridX + slotWidth * 3 + 60, y: gridY, w: slotWidth, h: slotHeight },
-    { photo: sidePhotos[3], x: gridX + slotWidth * 3 + 60, y: gridY + slotHeight + 30, w: slotWidth, h: slotHeight },
-    { photo: heroPhoto, x: heroX, y: heroY, w: heroW, h: heroH, isHero: true },
-  ];
+  const photoSlots: {
+    photo: PhotoSlot;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    isHero?: boolean;
+  }[] = [{ photo: heroPhoto, x: heroX, y: heroY, w: heroW, h: heroH, isHero: true }];
 
-  // If there are photo 5 and 6, draw them appropriately
-  if (sidePhotos[4]) {
-    photoSlots.push({ photo: sidePhotos[4], x: gridX, y: gridY, w: slotWidth, h: slotHeight });
-  }
+  sidePhotos.forEach((photo, i) => {
+    const col = i % sideCols;
+    const row = Math.floor(i / sideCols);
+    const x = gridX + slotWidth * 2 + 40 + col * (slotWidth + 20);
+    const y = gridY + row * (slotHeight + sideGap);
+    photoSlots.push({ photo, x, y, w: slotWidth, h: slotHeight });
+  });
 
   for (let i = 0; i < photoSlots.length; i++) {
     const slot = photoSlots[i];

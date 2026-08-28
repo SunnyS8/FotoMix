@@ -96,6 +96,8 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
 
   const heroPhoto = photos.find((p) => p.id === heroPhotoId) || photos[photos.length - 1];
   const sidePhotos = photos.filter((p) => p.id !== heroPhoto.id);
+  const sideLeft = sidePhotos.slice(0, Math.ceil(sidePhotos.length / 2));
+  const sideRight = sidePhotos.slice(Math.ceil(sidePhotos.length / 2));
 
   return (
     <div
@@ -172,25 +174,21 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
 
       {/* Dynamic Photo Layouts for 7 Photos */}
       <div className="relative z-10">
-        {/* LAYOUT 1: HERO MOSAIC (1 Big Center + 6 Surroundings) */}
+        {/* LAYOUT 1: HERO MOSAIC (1 Big Center + surrounding photos) */}
         {layout === 'mosaic-hero' && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-4.5 items-stretch">
-            {/* Left 2 Photos */}
+            {/* Left side photos */}
             <div className="md:col-span-3 flex flex-col gap-3.5 sm:gap-4">
-              <PhotoCard
-                photo={sidePhotos[0] || photos[0]}
-                index={0}
-                layout={layout}
-                onEdit={onEditPhoto}
-                onUpload={onUploadPhoto}
-              />
-              <PhotoCard
-                photo={sidePhotos[1] || photos[1]}
-                index={1}
-                layout={layout}
-                onEdit={onEditPhoto}
-                onUpload={onUploadPhoto}
-              />
+              {sideLeft.map((photo, i) => (
+                <PhotoCard
+                  key={photo.id}
+                  photo={photo}
+                  index={i}
+                  layout={layout}
+                  onEdit={onEditPhoto}
+                  onUpload={onUploadPhoto}
+                />
+              ))}
             </div>
 
             {/* Center Big Hero Photo */}
@@ -198,7 +196,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
               <div className="flex-1 relative">
                 <PhotoCard
                   photo={heroPhoto}
-                  index={6}
+                  index={sideLeft.length}
                   layout={layout}
                   isHero={true}
                   onEdit={onEditPhoto}
@@ -207,42 +205,18 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
               </div>
             </div>
 
-            {/* Right 2 Photos */}
+            {/* Right side photos */}
             <div className="md:col-span-3 flex flex-col gap-3.5 sm:gap-4">
-              <PhotoCard
-                photo={sidePhotos[2] || photos[2]}
-                index={2}
-                layout={layout}
-                onEdit={onEditPhoto}
-                onUpload={onUploadPhoto}
-              />
-              <PhotoCard
-                photo={sidePhotos[3] || photos[3]}
-                index={3}
-                layout={layout}
-                onEdit={onEditPhoto}
-                onUpload={onUploadPhoto}
-              />
-            </div>
-
-            {/* Bottom 2 Photos */}
-            <div className="md:col-span-6">
-              <PhotoCard
-                photo={sidePhotos[4] || photos[4]}
-                index={4}
-                layout={layout}
-                onEdit={onEditPhoto}
-                onUpload={onUploadPhoto}
-              />
-            </div>
-            <div className="md:col-span-6">
-              <PhotoCard
-                photo={sidePhotos[5] || photos[5]}
-                index={5}
-                layout={layout}
-                onEdit={onEditPhoto}
-                onUpload={onUploadPhoto}
-              />
+              {sideRight.map((photo, i) => (
+                <PhotoCard
+                  key={photo.id}
+                  photo={photo}
+                  index={sideLeft.length + 1 + i}
+                  layout={layout}
+                  onEdit={onEditPhoto}
+                  onUpload={onUploadPhoto}
+                />
+              ))}
             </div>
           </div>
         )}
@@ -253,7 +227,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
             {photos.map((photo, i) => {
               const rotations = ['rotate-[-3deg]', 'rotate-[4deg]', 'rotate-[-2deg]', 'rotate-[3deg]', 'rotate-[-4deg]', 'rotate-[2deg]', 'rotate-[-1deg]'];
               const rotationClass = rotations[i % rotations.length];
-              const isLarge = i === 6; // hero photo
+              const isLarge = photo.id === heroPhotoId; // hero photo
               return (
                 <div
                   key={photo.id}
@@ -351,7 +325,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
         {layout === 'comic-fun' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {photos.map((photo, i) => {
-              const isCenterHero = i === 6;
+              const isCenterHero = photo.id === heroPhotoId;
               return (
                 <div
                   key={photo.id}
@@ -375,7 +349,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
         {layout === 'polaroid-wall' && (
           <div className="pt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
             {photos.map((photo, i) => {
-              const isHero = i === 6;
+              const isHero = photo.id === heroPhotoId;
               return (
                 <div
                   key={photo.id}
