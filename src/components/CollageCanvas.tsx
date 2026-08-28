@@ -167,8 +167,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
         )}
       </div>
 
-      {/* Main Festive Header Banner (only when there is text) */}
-      {(textConfig.badgeText || textConfig.title || textConfig.subtitle) && (
+      {/* Main Festive Header Banner */}
       <div className="relative z-20 text-center mb-6 px-2 pointer-events-none">
         {textConfig.badgeText && (
           <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500/30 via-yellow-500/20 to-amber-500/30 border border-amber-400/50 backdrop-blur-md text-amber-200 text-xs sm:text-sm font-bold tracking-widest uppercase mb-2 shadow-lg">
@@ -178,15 +177,13 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
           </div>
         )}
 
-        {textConfig.title && (
-          <h1
-            id="collage-title"
-            style={{ fontFamily: getFontFamily() }}
-            className={`font-black tracking-wide leading-tight transition-all duration-300 ${getTitleSize()} ${getTitleEffect()}`}
-          >
-            {textConfig.title}
-          </h1>
-        )}
+        <h1
+          id="collage-title"
+          style={{ fontFamily: getFontFamily() }}
+          className={`font-black tracking-wide leading-tight transition-all duration-300 ${getTitleSize()} ${getTitleEffect()}`}
+        >
+          {textConfig.title}
+        </h1>
 
         {textConfig.subtitle && (
           <p
@@ -198,7 +195,6 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
           </p>
         )}
       </div>
-      )}
 
       {/* Dynamic Photo Layouts for 7 Photos */}
       <div className="relative z-10">
@@ -437,18 +433,16 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
         ))}
       </div>
 
-      {/* Bottom festive watermark / date (only when there is text) */}
-      {(textConfig.footerLeft || textConfig.footerRight) && (
+      {/* Bottom festive watermark / date */}
         <div className="relative z-20 mt-6 pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-amber-200/70">
           <div className="flex items-center gap-1.5">
             <Star size={14} className="text-amber-400" />
-            <span>{textConfig.footerLeft}</span>
+            <span>{textConfig.footerLeft || 'Праздник в кругу самых близких и любимых'}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>{textConfig.footerRight}</span>
+            <span>{textConfig.footerRight || 'С любовью и радостью! 🎉'}</span>
           </div>
         </div>
-      )}
     </div>
   );
 };

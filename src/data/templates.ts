@@ -136,6 +136,7 @@ export const INITIAL_STICKERS: StickerItem[] = [
   { id: 'stk-1', type: 'emoji', content: '🎉', x: 50, y: 3, size: 48, rotation: -8, zIndex: 30 },
   { id: 'stk-2', type: 'emoji', content: '🎂', x: 8, y: 6, size: 52, rotation: -15, zIndex: 25 },
   { id: 'stk-3', type: 'emoji', content: '✨', x: 91, y: 7, size: 50, rotation: 18, zIndex: 25 },
+  { id: 'stk-4', type: 'badge', content: 'С ДНЁМ РОЖДЕНИЯ 👑', x: 50, y: 92, size: 18, rotation: 0, zIndex: 35 },
   { id: 'stk-5', type: 'emoji', content: '🥳', x: 14, y: 88, size: 36, rotation: 20, zIndex: 20 },
   { id: 'stk-6', type: 'emoji', content: '⭐', x: 86, y: 88, size: 44, rotation: -12, zIndex: 20 },
 ];

@@ -110,23 +110,20 @@ export async function renderCollageDirectCanvas(
   }
 
   // Main Header Title
-  const hasHeader = !!(data.textConfig.badgeText || data.textConfig.title || data.textConfig.subtitle);
   const titleY = data.textConfig.badgeText ? 150 : 110;
-  if (data.textConfig.title) {
-    ctx.font = `900 68px "${data.textConfig.fontFamily}", "Montserrat", sans-serif`;
+  ctx.font = `900 68px "${data.textConfig.fontFamily}", "Montserrat", sans-serif`;
 
-    // Gold title gradient
-    const titleGrad = ctx.createLinearGradient(width / 2 - 300, 0, width / 2 + 300, 0);
-    titleGrad.addColorStop(0, '#fef08a');
-    titleGrad.addColorStop(0.5, '#f59e0b');
-    titleGrad.addColorStop(1, '#d97706');
+  // Gold title gradient
+  const titleGrad = ctx.createLinearGradient(width / 2 - 300, 0, width / 2 + 300, 0);
+  titleGrad.addColorStop(0, '#fef08a');
+  titleGrad.addColorStop(0.5, '#f59e0b');
+  titleGrad.addColorStop(1, '#d97706');
 
-    ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
-    ctx.shadowBlur = 25;
-    ctx.fillStyle = titleGrad;
-    ctx.fillText(data.textConfig.title, width / 2, titleY);
-    ctx.shadowBlur = 0; // reset
-  }
+  ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
+  ctx.shadowBlur = 25;
+  ctx.fillStyle = titleGrad;
+  ctx.fillText(data.textConfig.title || 'MixFoto', width / 2, titleY);
+  ctx.shadowBlur = 0; // reset
 
   // Subtitle
   if (data.textConfig.subtitle) {
@@ -136,7 +133,7 @@ export async function renderCollageDirectCanvas(
   }
 
   // 3. Draw Photos in Grid Layout
-  const topOffset = hasHeader ? titleY + 110 : 40;
+  const topOffset = titleY + 110;
   const gridW = width - 120;
   const gridH = height - topOffset - 90;
   const gridX = 60;
@@ -291,19 +288,17 @@ export async function renderCollageDirectCanvas(
     ctx.restore();
   }
 
-  // Bottom footer text (only when provided)
-  const footerLeft = data.textConfig.footerLeft;
-  const footerRight = data.textConfig.footerRight;
-  if (footerLeft || footerRight) {
-    ctx.font = 'bold 18px "Montserrat", sans-serif';
-    ctx.fillStyle = 'rgba(253, 230, 138, 0.7)';
-    const footerY = height - 35;
-    ctx.textAlign = 'left';
-    ctx.fillText(footerLeft, 60, footerY);
-    ctx.textAlign = 'right';
-    ctx.fillText(footerRight, width - 60, footerY);
-    ctx.textAlign = 'center';
-  }
+  // Bottom footer text (editable left/right lines)
+  const footerLeft = data.textConfig.footerLeft || 'Праздник в кругу самых близких и любимых';
+  const footerRight = data.textConfig.footerRight || 'С любовью и радостью! 🎉';
+  ctx.font = 'bold 18px "Montserrat", sans-serif';
+  ctx.fillStyle = 'rgba(253, 230, 138, 0.7)';
+  const footerY = height - 35;
+  ctx.textAlign = 'left';
+  ctx.fillText(footerLeft, 60, footerY);
+  ctx.textAlign = 'right';
+  ctx.fillText(footerRight, width - 60, footerY);
+  ctx.textAlign = 'center';
 
   return canvas.toDataURL('image/png', 0.98);
 }
