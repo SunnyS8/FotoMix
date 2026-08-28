@@ -60,7 +60,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-700/30 backdrop-blur-md animate-fadeIn">
       <div
         id="photo-editor-modal"
-        className="w-full max-w-lg bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-xl sm:max-w-2xl bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-5 max-h-[92vh] overflow-y-auto"
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -78,7 +78,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
         </div>
 
         {/* Preview Screen */}
-        <div className="relative w-full h-56 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
+        <div className="relative w-full h-72 sm:h-96 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
           {current.url ? (
             <div
               className="w-full h-full flex items-center justify-center overflow-hidden"
@@ -89,7 +89,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
               <img
                 src={current.url}
                 alt="Предпросмотр"
-                className="w-full h-full object-cover select-none"
+                className="w-full h-full object-contain select-none"
               />
             </div>
           ) : (
