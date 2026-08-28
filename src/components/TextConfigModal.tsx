@@ -24,6 +24,9 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
     { name: 'Comfortaa (Округлый & Добрый)', family: 'Comfortaa' },
   ];
 
+  // Festive emoji stickers that can be attached to the title
+  const TITLE_DECORATIONS = ['🎉', '🎂', '⭐', '👑', '✨', '🥳', '🎈', '💫', '❤️', '🌟'];
+
   const effects: { id: BirthdayTextConfig['effect']; name: string; icon: string }[] = [
     { id: 'gold', name: 'Золотой глянец', icon: '👑' },
     { id: 'glow', name: 'Неоновое свечение', icon: '✨' },
@@ -77,8 +80,42 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
             type="text"
             value={current.title}
             onChange={(e) => setCurrent((prev) => ({ ...prev, title: e.target.value }))}
-            className="w-full px-4 py-3 bg-whiteborder border-amber-500/40 rounded-2xl text-base font-black text-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full px-4 py-3 bg-white border border-amber-500/40 rounded-2xl text-base font-black text-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400"
           />
+        </div>
+
+        {/* Title sticker decorations */}
+        <div>
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
+            Стикеры к заголовку:
+          </label>
+          <div className="flex flex-wrap gap-1.5">
+            {TITLE_DECORATIONS.map((emoji) => {
+              const active = current.title.split(/\s+/).filter(Boolean).includes(emoji);
+              return (
+                <button
+                  key={emoji}
+                  type="button"
+                  onClick={() => {
+                    const tokens = current.title.split(/\s+/).filter(Boolean);
+                    setCurrent((prev) => ({
+                      ...prev,
+                      title: active
+                        ? tokens.filter((t) => t !== emoji).join(' ')
+                        : [...tokens, emoji].join(' '),
+                    }));
+                  }}
+                  className={`w-9 h-9 rounded-xl text-xl flex items-center justify-center transition-all ${
+                    active
+                      ? 'bg-amber-400 shadow-md ring-1 ring-amber-300 scale-105'
+                      : 'bg-slate-100 hover:bg-amber-100 border border-slate-200'
+                  }`}
+                >
+                  {emoji}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Subtitle / Wishes input */}
