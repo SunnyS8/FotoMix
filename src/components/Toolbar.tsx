@@ -31,6 +31,8 @@ interface ToolbarProps {
   onOpenExport: () => void;
   onTriggerConfetti: () => void;
   onBatchUpload: (files: FileList) => void;
+  customBackground?: string | null;
+  onCustomBackground: (url: string | null) => void;
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -46,8 +48,20 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onOpenExport,
   onTriggerConfetti,
   onBatchUpload,
+  customBackground,
+  onCustomBackground,
 }) => {
   const batchInputRef = useRef<HTMLInputElement>(null);
+  const customBgInputRef = useRef<HTMLInputElement>(null);
+
+  const handleCustomBgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => onCustomBackground(typeof reader.result === 'string' ? reader.result : null);
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
 
   const getThemeIcon = (iconName: string) => {
     switch (iconName) {
@@ -241,6 +255,38 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         </span>
 
         <div className="flex items-center flex-wrap gap-2">
+          {/* Upload custom background */}
+          <button
+            type="button"
+            onClick={() => customBgInputRef.current?.click()}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+              customBackground
+                ? 'bg-amber-100 border-2 border-amber-400 text-amber-700 shadow-md'
+                : 'bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-500 hover:text-slate-700'
+            }`}
+            title="Загрузить свой фон"
+          >
+            <ImageIcon size={14} />
+            <span className="text-[11px]">Свой фон</span>
+          </button>
+          {customBackground && (
+            <button
+              type="button"
+              onClick={() => onCustomBackground(null)}
+              className="px-2 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-red-100 border border-slate-200 text-slate-400 hover:text-red-500 transition-all"
+              title="Убрать свой фон"
+            >
+              ✕
+            </button>
+          )}
+          <input
+            ref={customBgInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleCustomBgChange}
+            className="hidden"
+          />
+
           {BACKGROUNDS.map((bg) => (
             <button
               key={bg.id}

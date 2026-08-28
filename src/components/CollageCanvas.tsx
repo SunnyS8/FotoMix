@@ -16,6 +16,7 @@ interface CollageCanvasProps {
   photos: PhotoSlot[];
   layout: LayoutStyle;
   background: BackgroundStyle;
+  customBackground?: string | null;
   textConfig: BirthdayTextConfig;
   stickers: StickerItem[];
   selectedStickerId: string | null;
@@ -46,6 +47,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
   photos,
   layout,
   background,
+  customBackground,
   textConfig,
   stickers,
   selectedStickerId,
@@ -132,6 +134,21 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
         boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(245, 158, 11, 0.15)',
       }}
     >
+      {/* Custom uploaded background image */}
+      {customBackground && (
+        <div className="absolute inset-0 z-0">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${customBackground})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+      )}
+
       {/* Decorative Gold & Particle Overlays */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Glow corner bursts */}

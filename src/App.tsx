@@ -63,6 +63,7 @@ export default function App() {
   const photos = allPhotos.slice(0, photoCount);
   const [layout, setLayout] = useState<LayoutStyle>('mosaic-hero');
   const [background, setBackground] = useState<BackgroundStyle>('dark-gold');
+  const [customBackground, setCustomBackground] = useState<string | null>(null);
   const [heroPhotoId, setHeroPhotoId] = useState<string>('photo-7');
   const [stickers, setStickers] = useState<StickerItem[]>(INITIAL_STICKERS);
   const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
@@ -232,6 +233,8 @@ export default function App() {
         onChangePhotoCount={handlePhotoCountChange}
         onChangeLayout={handleLayoutChange}
         onChangeBackground={setBackground}
+        customBackground={customBackground}
+        onCustomBackground={setCustomBackground}
         onOpenStickers={() => setIsStickersOpen(true)}
         onOpenTextConfig={() => setIsTextConfigOpen(true)}
         onOpenWishes={() => setIsWishesOpen(true)}
@@ -246,6 +249,7 @@ export default function App() {
           photos={photos}
           layout={layout}
           background={background}
+          customBackground={customBackground}
           textConfig={textConfig}
           stickers={stickers}
           selectedStickerId={selectedStickerId}
