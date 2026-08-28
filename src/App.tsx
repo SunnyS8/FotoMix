@@ -183,7 +183,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-3 sm:p-6 md:p-8 flex flex-col items-center selection:bg-amber-500 selection:text-slate-950 font-sans">
+    <div className="min-h-screen relative bg-gradient-to-b from-rose-50 via-white to-amber-50 text-slate-800 p-3 sm:p-6 md:p-8 flex flex-col items-center selection:bg-amber-400 selection:text-white font-sans overflow-hidden">
+      {/* Soft decorative glows */}
+      <div className="pointer-events-none absolute -top-32 -left-24 w-96 h-96 rounded-full bg-amber-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -right-24 w-96 h-96 rounded-full bg-rose-200/40 blur-3xl" />
       {/* Top Toolbar */}
       <Toolbar
         layout={layout}
@@ -218,15 +221,15 @@ export default function App() {
       </main>
 
       {/* Quick Helper Tips */}
-      <footer className="w-full max-w-5xl mt-6 text-center text-xs text-slate-400 flex flex-wrap items-center justify-center gap-4 py-3 border-t border-slate-900">
-        <span className="flex items-center gap-1.5 text-amber-300/80">
-          <Sparkles size={14} /> Наведите на любое фото для замены или настройки фильтров
-        </span>
-        <span>•</span>
-        <span className="flex items-center gap-1.5 text-slate-300">
-          Стикеры можно перетаскивать по холсту, вращать и масштабировать
-        </span>
-      </footer>
+        <footer className="w-full max-w-5xl mt-6 text-center text-xs text-slate-500 flex flex-wrap items-center justify-center gap-4 py-3 border-t border-slate-200">
+          <span className="flex items-center gap-1.5 text-amber-600/90">
+            <Sparkles size={14} /> Наведите на любое фото для замены или настройки фильтров
+          </span>
+          <span>•</span>
+          <span className="flex items-center gap-1.5 text-slate-500">
+            Стикеры можно перетаскивать по холсту, вращать и масштабировать
+          </span>
+        </footer>
 
       {/* Modals */}
       {editingPhoto && (

@@ -57,28 +57,28 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-700/30 backdrop-blur-md animate-fadeIn">
       <div
         id="photo-editor-modal"
-        className="w-full max-w-lg bg-slate-900 border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-slate-100 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-lg bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <div className="flex items-center gap-2">
-            <Sliders size={20} className="text-amber-400" />
-            <h3 className="text-lg font-bold text-white">Редактор фотографии</h3>
+            <Sliders size={20} className="text-amber-500" />
+            <h3 className="text-lg font-bold text-slate-800">Редактор фотографии</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Preview Screen */}
-        <div className="relative w-full h-56 rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden flex items-center justify-center">
+        <div className="relative w-full h-56 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
           {current.url ? (
             <div
               className="w-full h-full flex items-center justify-center overflow-hidden"
@@ -93,8 +93,8 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
               />
             </div>
           ) : (
-            <div className="text-center p-4 text-slate-400 flex flex-col items-center gap-2">
-              <Upload size={32} className="text-amber-400 animate-bounce" />
+            <div className="text-center p-4 text-slate-500 flex flex-col items-center gap-2">
+              <Upload size={32} className="text-amber-500 animate-bounce" />
               <p className="text-sm font-medium">Фотография еще не загружена</p>
               <button
                 type="button"
@@ -111,7 +111,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="px-3 py-1.5 bg-slate-900/90 hover:bg-slate-800 text-amber-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-amber-500/30 backdrop-blur-md shadow-md"
+              className="px-3 py-1.5 bg-white/90 hover:bg-slate-100 text-amber-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-slate-200 backdrop-blur-md shadow-md"
             >
               <Upload size={14} />
               <span>{current.url ? 'Заменить фото' : 'Загрузить фото'}</span>
@@ -128,7 +128,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
 
         {/* Caption Input */}
         <div>
-          <label className="block text-xs font-semibold text-amber-200/80 mb-1.5">
+          <label className="block text-xs font-semibold text-amber-600 mb-1.5">
             Подпись к карточке (воспоминание, смайлик, момент):
           </label>
           <input
@@ -136,13 +136,13 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
             value={current.caption || ''}
             onChange={(e) => setCurrent((prev) => ({ ...prev, caption: e.target.value }))}
             placeholder="Например: 🍕 Вкуснейшая пицца!"
-            className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+            className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
           />
         </div>
 
         {/* Filter Selection */}
         <div>
-          <label className="block text-xs font-semibold text-amber-200/80 mb-2">
+          <label className="block text-xs font-semibold text-amber-600 mb-2">
             Праздничный фильтр:
           </label>
           <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
@@ -153,8 +153,8 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
                 onClick={() => setCurrent((prev) => ({ ...prev, filter: f.id }))}
                 className={`p-2 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all ${
                   current.filter === f.id
-                    ? 'border-amber-400 bg-amber-500/20 text-amber-200 shadow-md ring-1 ring-amber-400'
-                    : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'border-amber-400 bg-amber-100 text-amber-700 shadow-md ring-1 ring-amber-400'
+                    : 'border-slate-200 bg-slate-100 text-slate-500 hover:border-slate-300 hover:text-slate-700'
                 }`}
               >
                 <span className="text-base">{f.icon}</span>
@@ -165,11 +165,11 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
         </div>
 
         {/* Adjustments: Zoom & Rotate */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-300 mb-1">
+            <div className="flex items-center justify-between text-xs text-slate-600 mb-1">
               <span>Масштаб (Зум)</span>
-              <span className="font-bold text-amber-400">{Math.round(current.zoom * 100)}%</span>
+              <span className="font-bold text-amber-600">{Math.round(current.zoom * 100)}%</span>
             </div>
             <div className="flex items-center gap-2">
               <ZoomOut size={16} className="text-slate-400" />
@@ -187,12 +187,12 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
           </div>
 
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-300 mb-1">
+            <div className="flex items-center justify-between text-xs text-slate-600 mb-1">
               <span>Поворот</span>
               <button
                 type="button"
                 onClick={rotate90}
-                className="text-[11px] font-semibold text-amber-400 flex items-center gap-1 hover:underline"
+                className="text-[11px] font-semibold text-amber-600 flex items-center gap-1 hover:underline"
               >
                 <RotateCw size={12} /> +90°
               </button>
@@ -210,10 +210,10 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
         </div>
 
         {/* Hero Photo Switcher */}
-        <div className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/30">
+        <div className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-amber-100 to-transparent border border-amber-300/50">
           <div>
-            <p className="text-xs font-bold text-amber-300">Сделать главным фото коллажа</p>
-            <p className="text-[11px] text-slate-400">Это фото займёт центральное место</p>
+            <p className="text-xs font-bold text-amber-700">Сделать главным фото коллажа</p>
+            <p className="text-[11px] text-slate-500">Это фото займёт центральное место</p>
           </div>
           <button
             type="button"
@@ -221,7 +221,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
               isHero
                 ? 'bg-amber-400 text-slate-950 shadow-md ring-2 ring-amber-300'
-                : 'bg-slate-800 hover:bg-slate-700 text-slate-200'
+                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
             }`}
           >
             {isHero ? '★ Главное' : 'Сделать главным'}
@@ -229,11 +229,11 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
         </div>
 
         {/* Actions Footer */}
-        <div className="flex items-center justify-between border-t border-slate-800 pt-3">
+        <div className="flex items-center justify-between border-t border-slate-200 pt-3">
           <button
             type="button"
             onClick={resetAll}
-            className="text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+            className="text-xs font-semibold text-slate-400 hover:text-slate-700 transition-colors"
           >
             Сбросить настройки
           </button>
@@ -242,7 +242,7 @@ export const PhotoEditorModal: React.FC<PhotoEditorModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-colors"
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition-colors"
             >
               Отмена
             </button>

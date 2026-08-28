@@ -71,16 +71,16 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-3.5 mb-6">
       {/* Top Header Row with Quick Actions */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-3.5 sm:p-4 rounded-3xl shadow-xl backdrop-blur-md">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white/70 border border-white/70 p-3.5 sm:p-4 rounded-3xl shadow-lg shadow-slate-200/50 backdrop-blur-xl">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-amber-500/30">
             🎂
           </div>
           <div>
-            <h2 className="text-base font-black text-white tracking-wide">
+            <h2 className="text-base font-black text-slate-800 tracking-wide">
               Праздничный Коллаж
             </h2>
-            <p className="text-xs text-amber-300/80 font-medium">
+            <p className="text-xs text-amber-600 font-medium">
               Праздничный коллаж • 7 памятных фото
             </p>
           </div>
@@ -92,7 +92,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           <button
             type="button"
             onClick={() => batchInputRef.current?.click()}
-            className="px-3.5 py-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-bold border border-amber-500/30 shadow-md flex items-center gap-1.5 transition-all hover:scale-102"
+            className="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-amber-700 text-xs font-bold border border-slate-200 shadow-sm flex items-center gap-1.5 transition-all hover:scale-102"
             title="Загрузить сразу несколько фото"
           >
             <Upload size={15} />
@@ -134,9 +134,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       {/* Second Row: Layout Templates & Creative Tools */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
         {/* Layout Styles Selector */}
-        <div className="md:col-span-8 bg-slate-900/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-2">
+        <div className="md:col-span-8 bg-white/70 border border-slate-200 p-3 rounded-2xl flex flex-col gap-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-amber-300/90 uppercase tracking-wider flex items-center gap-1.5">
+            <span className="text-[11px] font-bold text-amber-600 uppercase tracking-wider flex items-center gap-1.5">
               <Layout size={13} />
               <span>Шаблоны расположения:</span>
             </span>
@@ -151,7 +151,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className={`px-2.5 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all ${
                   layout === th.id
                     ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-500/20 ring-1 ring-amber-300 scale-102'
-                    : 'bg-slate-950/70 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-800 border border-slate-200'
                 }`}
               >
                 {getThemeIcon(th.icon)}
@@ -164,7 +164,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         </div>
 
         {/* Action Tool Buttons */}
-        <div className="md:col-span-4 bg-slate-900/80 border border-slate-800 p-3 rounded-2xl flex flex-col justify-between gap-2">
+        <div className="md:col-span-4 bg-white/70 border border-slate-200 p-3 rounded-2xl flex flex-col justify-between gap-2 shadow-sm">
           <span className="text-[11px] font-bold text-amber-300/90 uppercase tracking-wider flex items-center gap-1.5">
             <Sparkles size={13} />
             <span>Оформление:</span>
@@ -174,7 +174,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               type="button"
               onClick={onOpenTextConfig}
-              className="p-2 rounded-xl bg-slate-950/70 hover:bg-slate-800 text-slate-200 border border-slate-800 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
               title="Изменить текст и шрифты"
             >
               <Type size={15} className="text-amber-400" />
@@ -184,7 +184,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               type="button"
               onClick={onOpenStickers}
-              className="p-2 rounded-xl bg-slate-950/70 hover:bg-slate-800 text-slate-200 border border-slate-800 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
               title="Добавить стикеры и бейджи"
             >
               <Smile size={15} className="text-amber-400" />
@@ -194,7 +194,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               type="button"
               onClick={onOpenWishes}
-              className="p-2 rounded-xl bg-slate-950/70 hover:bg-slate-800 text-slate-200 border border-slate-800 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
+              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
               title="Готовые пожелания"
             >
               <Heart size={15} className="text-rose-400" />
@@ -205,8 +205,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       </div>
 
       {/* Third Row: Background Color Palette Swatches */}
-      <div className="bg-slate-900/60 border border-slate-800/80 px-3.5 py-2.5 rounded-2xl flex flex-wrap items-center justify-between gap-2">
-        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+      <div className="bg-white/60 border border-slate-200 px-3.5 py-2.5 rounded-2xl flex flex-wrap items-center justify-between gap-2 shadow-sm">
+        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
           <Palette size={13} className="text-amber-400" />
           <span>Фоновое оформление:</span>
         </span>
@@ -219,8 +219,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               onClick={() => onChangeBackground(bg.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 background === bg.id
-                  ? 'bg-amber-400/20 border-2 border-amber-400 text-amber-200 shadow-md'
-                  : 'bg-slate-950/80 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-amber-100 border-2 border-amber-400 text-amber-700 shadow-md'
+                  : 'bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-500 hover:text-slate-700'
               }`}
             >
               <span

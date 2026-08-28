@@ -15,21 +15,21 @@ export const StickerPickerModal: React.FC<StickerPickerModalProps> = ({
   onAddBadge,
 }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-700/30 backdrop-blur-md animate-fadeIn">
       <div
         id="sticker-picker-modal"
-        className="w-full max-w-md bg-slate-900 border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-slate-100 flex flex-col gap-4 max-h-[85vh] overflow-y-auto"
+        className="w-full max-w-md bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-4 max-h-[85vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <div className="flex items-center gap-2">
-            <Sparkles size={20} className="text-amber-400" />
-            <h3 className="text-lg font-bold text-white">Добавить праздничный декор</h3>
+            <Sparkles size={20} className="text-amber-500" />
+            <h3 className="text-lg font-bold text-slate-800">Добавить праздничный декор</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
@@ -38,14 +38,14 @@ export const StickerPickerModal: React.FC<StickerPickerModalProps> = ({
         {/* Categories */}
         <div className="flex flex-col gap-4">
           {STICKER_PACK.map((pack, idx) => (
-            <div key={idx} className="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800/80">
+            <div key={idx} className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
               <div className="flex items-center gap-1.5 mb-2.5">
                 {pack.badges ? (
-                  <Tag size={15} className="text-amber-400" />
+                  <Tag size={15} className="text-amber-500" />
                 ) : (
-                  <Smile size={15} className="text-amber-400" />
+                  <Smile size={15} className="text-amber-500" />
                 )}
-                <h4 className="text-xs font-bold text-amber-200 uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-amber-600 uppercase tracking-wider">
                   {pack.category}
                 </h4>
               </div>
@@ -60,7 +60,7 @@ export const StickerPickerModal: React.FC<StickerPickerModalProps> = ({
                         onAddEmoji(emoji);
                         onClose();
                       }}
-                      className="p-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 border border-slate-800 hover:border-amber-400 text-2xl flex items-center justify-center transition-all hover:scale-125"
+                      className="p-2.5 rounded-xl bg-slate-100 hover:bg-amber-100 border border-slate-200 hover:border-amber-400 text-2xl flex items-center justify-center transition-all hover:scale-125"
                     >
                       {emoji}
                     </button>

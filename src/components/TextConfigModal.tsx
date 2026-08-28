@@ -48,21 +48,21 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-700/30 backdrop-blur-md animate-fadeIn">
       <div
         id="text-config-modal"
-        className="w-full max-w-lg bg-slate-900 border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-slate-100 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-lg bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <div className="flex items-center gap-2">
             <Type size={20} className="text-amber-400" />
-            <h3 className="text-lg font-bold text-white">Настройка поздравления</h3>
+            <h3 className="text-lg font-bold text-slate-800">Настройка поздравления</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
@@ -70,20 +70,20 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
 
         {/* Main Title Input */}
         <div>
-          <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
             Главный заголовок:
           </label>
           <input
             type="text"
             value={current.title}
             onChange={(e) => setCurrent((prev) => ({ ...prev, title: e.target.value }))}
-            className="w-full px-4 py-3 bg-slate-950 border border-amber-500/40 rounded-2xl text-base font-black text-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full px-4 py-3 bg-whiteborder border-amber-500/40 rounded-2xl text-base font-black text-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400"
           />
         </div>
 
         {/* Subtitle / Wishes input */}
         <div>
-          <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
             Пожелание / Подзаголовок:
           </label>
           <input
@@ -91,20 +91,20 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
             value={current.subtitle}
             onChange={(e) => setCurrent((prev) => ({ ...prev, subtitle: e.target.value }))}
             placeholder="Пусть каждый день будет полон приключений и радости!"
-            className="w-full px-4 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-400"
+            className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-400"
           />
         </div>
 
         {/* Badge Tag */}
         <div>
-          <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
             Праздничная лента (бейджик сверху):
           </label>
           <input
             type="text"
             value={current.badgeText}
             onChange={(e) => setCurrent((prev) => ({ ...prev, badgeText: e.target.value }))}
-            className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-400 mb-2"
+            className="w-full px-3.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-amber-700 focus:outline-none focus:ring-1 focus:ring-amber-400 mb-2"
           />
           <div className="flex flex-wrap gap-1.5">
             {badges.map((b, idx) => (
@@ -112,7 +112,7 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
                 key={idx}
                 type="button"
                 onClick={() => setCurrent((prev) => ({ ...prev, badgeText: b }))}
-                className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-200 border border-slate-700 transition-colors"
+                className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-100 text-slate-500 hover:text-amber-700 border border-slate-200 transition-colors"
               >
                 {b}
               </button>
@@ -123,7 +123,7 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
         {/* Footer lines */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
               Подпись слева (в подвале):
             </label>
             <input
@@ -131,11 +131,11 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
               value={current.footerLeft}
               onChange={(e) => setCurrent((prev) => ({ ...prev, footerLeft: e.target.value }))}
               placeholder="Праздник в кругу самых близких и любимых"
-              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              className="w-full px-3.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-400"
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
               Подпись справа (в подвале):
             </label>
             <input
@@ -143,14 +143,14 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
               value={current.footerRight}
               onChange={(e) => setCurrent((prev) => ({ ...prev, footerRight: e.target.value }))}
               placeholder="С любовью и радостью! 🎉"
-              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              className="w-full px-3.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-amber-400"
             />
           </div>
         </div>
 
         {/* Font Family Selection */}
         <div>
-          <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
             Шрифт надписи:
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -161,8 +161,8 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
                 onClick={() => setCurrent((prev) => ({ ...prev, fontFamily: f.family }))}
                 className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all ${
                   current.fontFamily === f.family
-                    ? 'border-amber-400 bg-amber-500/20 text-amber-300 shadow-md ring-1 ring-amber-400'
-                    : 'border-slate-800 bg-slate-950/60 text-slate-300 hover:border-slate-700'
+                    ? 'border-amber-400 bg-amber-500/20 text-amber-600 shadow-md ring-1 ring-amber-400'
+                    : 'border-slate-200 bg-slate-100 text-slate-500 hover:border-slate-300'
                 }`}
               >
                 {f.name}
@@ -173,7 +173,7 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
 
         {/* Visual Effect */}
         <div>
-          <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
             Эффект стиля:
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -184,8 +184,8 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
                 onClick={() => setCurrent((prev) => ({ ...prev, effect: eff.id }))}
                 className={`p-2 rounded-xl border flex items-center gap-2 text-xs font-bold transition-all ${
                   current.effect === eff.id
-                    ? 'border-amber-400 bg-amber-500/20 text-amber-300 ring-1 ring-amber-400'
-                    : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'border-amber-400 bg-amber-500/20 text-amber-600 ring-1 ring-amber-400'
+                    : 'border-slate-200 bg-slate-100 text-slate-400 hover:border-slate-300 hover:text-slate-600'
                 }`}
               >
                 <span>{eff.icon}</span>
@@ -197,7 +197,7 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
 
         {/* Size Selection */}
         <div>
-          <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-amber-600 uppercase tracking-wider mb-1.5">
             Размер заголовка:
           </label>
           <div className="grid grid-cols-4 gap-2">
@@ -208,8 +208,8 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
                 onClick={() => setCurrent((prev) => ({ ...prev, size: s.id }))}
                 className={`p-2 rounded-xl border text-center text-xs font-bold transition-all ${
                   current.size === s.id
-                    ? 'border-amber-400 bg-amber-500/20 text-amber-300 ring-1 ring-amber-400'
-                    : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'border-amber-400 bg-amber-500/20 text-amber-600 ring-1 ring-amber-400'
+                    : 'border-slate-200 bg-slate-100 text-slate-400 hover:border-slate-300 hover:text-slate-600'
                 }`}
               >
                 {s.name}
@@ -219,11 +219,11 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-2 border-t border-slate-800 pt-3">
+        <div className="flex items-center justify-end gap-2 border-t border-slate-200 pt-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-colors"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition-colors"
           >
             Отмена
           </button>

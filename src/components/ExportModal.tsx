@@ -56,7 +56,6 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     setErrorMessage(null);
 
     try {
-      // Use master exporter with multi-level fallbacks (html-to-image -> html2canvas -> direct Canvas 2D)
       const dataUrl = await exportCollageImage(
         'collage-export-target',
         format,
@@ -116,7 +115,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
       printWindow.document.write(`
         <html>
           <head>
-              <title>Печать: MixFoto</title>
+            <title>Печать: MixFoto</title>
             <style>
               body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #000; }
               img { max-width: 100%; max-height: 100vh; object-fit: contain; }
@@ -155,7 +154,6 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     }
   };
 
-  // Generate on first mount with short delay to allow DOM render
   useEffect(() => {
     const timer = setTimeout(() => {
       generateCanvasImage('png');
@@ -164,36 +162,36 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-700/30 backdrop-blur-md animate-fadeIn">
       <div
         id="export-modal"
-        className="w-full max-w-2xl bg-slate-900 border border-amber-500/40 rounded-3xl p-5 sm:p-7 shadow-2xl text-slate-100 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-2xl bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-7 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <div className="flex items-center gap-2">
-            <Sparkles size={22} className="text-amber-400" />
+            <Sparkles size={22} className="text-amber-500" />
             <div>
-              <h3 className="text-lg font-bold text-white">MixFoto</h3>
-              <p className="text-xs text-amber-200/80">Создай коллаж к празднику</p>
+              <h3 className="text-lg font-bold text-slate-800">MixFoto</h3>
+              <p className="text-xs text-amber-600">Создай коллаж к празднику</p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Preview Frame */}
-        <div className="relative w-full h-80 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden p-2">
+        <div className="relative w-full h-80 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden p-2">
           {isGenerating ? (
-            <div className="flex flex-col items-center gap-3 text-amber-300">
-              <Loader2 size={36} className="animate-spin text-amber-400" />
+            <div className="flex flex-col items-center gap-3 text-amber-600">
+              <Loader2 size={36} className="animate-spin text-amber-500" />
               <p className="text-sm font-semibold">Рендерим коллаж в высоком разрешении...</p>
-              <p className="text-xs text-slate-400">Формируем сверхчёткое изображение открытки</p>
+              <p className="text-xs text-slate-500">Формируем сверхчёткое изображение открытки</p>
             </div>
           ) : previewUrl ? (
             <img
@@ -203,8 +201,8 @@ export const ExportModal: React.FC<ExportModalProps> = ({
             />
           ) : (
             <div className="flex flex-col items-center gap-2 text-center p-4">
-              <ImageIcon size={32} className="text-slate-500" />
-              <p className="text-sm text-slate-300">{errorMessage || 'Нажмите кнопку ниже для экспорта'}</p>
+              <ImageIcon size={32} className="text-slate-400" />
+              <p className="text-sm text-slate-500">{errorMessage || 'Нажмите кнопку ниже для экспорта'}</p>
               <button
                 type="button"
                 onClick={() => generateCanvasImage('png')}
@@ -233,37 +231,37 @@ export const ExportModal: React.FC<ExportModalProps> = ({
             type="button"
             disabled={isGenerating}
             onClick={() => handleDownload('jpeg')}
-            className="p-3.5 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-bold text-sm border border-slate-700 flex flex-col items-center justify-center gap-1 transition-transform hover:scale-102 active:scale-98 disabled:opacity-50 cursor-pointer"
+            className="p-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold text-sm border border-slate-200 flex flex-col items-center justify-center gap-1 transition-transform hover:scale-102 active:scale-98 disabled:opacity-50 cursor-pointer"
           >
             <Download size={20} />
             <span>Скачать JPG</span>
-            <span className="text-[10px] font-normal text-slate-400">Компактный размер</span>
+            <span className="text-[10px] font-normal text-slate-500">Компактный размер</span>
           </button>
 
           <button
             type="button"
             disabled={isGenerating}
             onClick={handlePrint}
-            className="p-3.5 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-bold text-sm border border-slate-700 flex flex-col items-center justify-center gap-1 transition-transform hover:scale-102 active:scale-98 disabled:opacity-50 cursor-pointer"
+            className="p-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold text-sm border border-slate-200 flex flex-col items-center justify-center gap-1 transition-transform hover:scale-102 active:scale-98 disabled:opacity-50 cursor-pointer"
           >
             <Printer size={20} />
             <span>Распечатать</span>
-            <span className="text-[10px] font-normal text-slate-400">Формат А4 / Открытка</span>
+            <span className="text-[10px] font-normal text-slate-500">Формат А4 / Открытка</span>
           </button>
         </div>
 
         {/* Direct Canvas High-Res alternative button */}
-        <div className="flex flex-wrap items-center justify-between pt-3 border-t border-slate-800 text-xs gap-2">
+        <div className="flex flex-wrap items-center justify-between pt-3 border-t border-slate-200 text-xs gap-2">
           <button
             type="button"
             onClick={handleCopyImage}
             disabled={isGenerating}
-            className="px-4 py-2 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl font-semibold flex items-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
+            className="px-4 py-2 bg-slate-100/80 hover:bg-slate-200 text-slate-600 rounded-xl font-semibold flex items-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
           >
             {copied ? (
               <>
-                <Check size={16} className="text-emerald-400" />
-                <span className="text-emerald-400">Картинка в буфере обмена!</span>
+                <Check size={16} className="text-emerald-500" />
+                <span className="text-emerald-600">Картинка в буфере обмена!</span>
               </>
             ) : (
               <>
@@ -276,7 +274,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-bold transition-colors cursor-pointer ml-auto"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold transition-colors cursor-pointer ml-auto"
           >
             Закрыть
           </button>
@@ -285,4 +283,3 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     </div>
   );
 };
-

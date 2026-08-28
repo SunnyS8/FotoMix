@@ -51,27 +51,27 @@ export const WishesModal: React.FC<WishesModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-700/30 backdrop-blur-md animate-fadeIn">
       <div
         id="wishes-modal"
-        className="w-full max-w-lg bg-slate-900 border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-slate-100 flex flex-col gap-4 max-h-[85vh] overflow-y-auto"
+        className="w-full max-w-lg bg-white/90 backdrop-blur-xl border border-white/70 rounded-3xl p-5 sm:p-6 shadow-2xl shadow-slate-300/50 text-slate-800 flex flex-col gap-4 max-h-[85vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <div className="flex items-center gap-2">
-            <Heart size={20} className="text-rose-400 fill-rose-400/30" />
-            <h3 className="text-lg font-bold text-white">Праздничные поздравления</h3>
+            <Heart size={20} className="text-rose-500 fill-rose-500/30" />
+            <h3 className="text-lg font-bold text-slate-800">Праздничные поздравления</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-500">
           Выберите пожелание, отредактируйте его под себя или напишите своё, а затем
           добавьте в подзаголовок коллажа:
         </p>
@@ -81,28 +81,28 @@ export const WishesModal: React.FC<WishesModalProps> = ({
           {wishes.map((wish, idx) => (
             <div
               key={idx}
-              className="group bg-slate-950/70 hover:bg-slate-950 border border-slate-800 hover:border-amber-500/50 p-4 rounded-2xl transition-all duration-200 flex flex-col gap-3 shadow-md"
+              className="group bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 p-4 rounded-2xl transition-all duration-200 flex flex-col gap-3 shadow-sm"
             >
               {editingIdx === idx ? (
                 <textarea
                   value={draft}
                   onChange={(e) => setDraft(e.target.value)}
                   rows={3}
-                  className="w-full resize-none rounded-xl bg-slate-900 border border-amber-500/40 p-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-400/50"
+                  className="w-full resize-none rounded-xl bg-white border border-amber-300 p-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-400/50"
                 />
               ) : (
-                <p className="text-sm text-slate-200 leading-relaxed font-medium">
+                <p className="text-sm text-slate-700 leading-relaxed font-medium">
                   «{wish}»
                 </p>
               )}
 
-              <div className="flex items-center justify-end gap-2 pt-1 border-t border-slate-800/60 flex-wrap">
+              <div className="flex items-center justify-end gap-2 pt-1 border-t border-slate-200 flex-wrap">
                 {editingIdx === idx ? (
                   <>
                     <button
                       type="button"
                       onClick={cancelEdit}
-                      className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors"
                     >
                       Отмена
                     </button>
@@ -120,12 +120,12 @@ export const WishesModal: React.FC<WishesModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleCopy(wish, idx)}
-                      className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold flex items-center gap-1.5 transition-colors"
                     >
                       {copiedIdx === idx ? (
                         <>
-                          <Check size={14} className="text-emerald-400" />
-                          <span className="text-emerald-400">Скопировано!</span>
+                          <Check size={14} className="text-emerald-500" />
+                          <span className="text-emerald-600">Скопировано!</span>
                         </>
                       ) : (
                         <>
@@ -138,7 +138,7 @@ export const WishesModal: React.FC<WishesModalProps> = ({
                     <button
                       type="button"
                       onClick={() => startEdit(idx)}
-                      className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold flex items-center gap-1.5 transition-colors"
                     >
                       <Pencil size={14} />
                       <span>Изменить</span>
@@ -160,8 +160,8 @@ export const WishesModal: React.FC<WishesModalProps> = ({
         </div>
 
         {/* Custom wish composer */}
-        <div className="bg-slate-950/70 border border-amber-500/30 rounded-2xl p-4 flex flex-col gap-3 shadow-md">
-          <div className="flex items-center gap-2 text-amber-200 text-sm font-bold">
+        <div className="bg-slate-50 border border-amber-300/50 rounded-2xl p-4 flex flex-col gap-3 shadow-sm">
+          <div className="flex items-center gap-2 text-amber-600 text-sm font-bold">
             <Plus size={16} />
             <span>Своё поздравление</span>
           </div>
@@ -170,7 +170,7 @@ export const WishesModal: React.FC<WishesModalProps> = ({
             onChange={(e) => setCustom(e.target.value)}
             rows={3}
             placeholder="Напишите своё пожелание..."
-            className="w-full resize-none rounded-xl bg-slate-900 border border-amber-500/40 p-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50"
+            className="w-full resize-none rounded-xl bg-white border border-amber-300 p-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50"
           />
           <button
             type="button"
