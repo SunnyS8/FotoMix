@@ -43,7 +43,9 @@ export const StickerElement: React.FC<StickerElementProps> = ({
 
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDragging) return;
-    const parent = (e.currentTarget as HTMLElement).parentElement;
+    // Measure against the positioned canvas layer (offsetParent), not the
+    // zero-size pointer-events wrapper that directly parents this element.
+    const parent = (e.currentTarget as HTMLElement).offsetParent as HTMLElement | null;
     if (!parent) return;
 
     const rect = parent.getBoundingClientRect();
