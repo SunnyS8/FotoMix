@@ -140,14 +140,14 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
           </div>
         )}
 
-        {/* Hover Quick Action Overlay */}
-        <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 p-2 z-10">
+        {/* Hover/Tap Quick Action Overlay */}
+        <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-xs opacity-0 group-hover:opacity-100 max-sm:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 p-2 z-10 pointer-events-none">
           <button
             type="button"
             id={`btn-upload-${photo.id}`}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() => fileInputRef.current?.click()}
-            className="p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-full shadow-lg transition-transform hover:scale-110 font-bold"
+            className="p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-full shadow-lg transition-transform hover:scale-110 font-bold pointer-events-auto"
             title="Загрузить фото"
           >
             <Upload size={16} />
@@ -157,7 +157,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
             id={`btn-edit-${photo.id}`}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() => onEdit(photo)}
-            className="p-2 bg-white hover:bg-slate-100 text-slate-900 rounded-full shadow-lg transition-transform hover:scale-110 font-bold"
+            className="p-2 bg-white hover:bg-slate-100 text-slate-900 rounded-full shadow-lg transition-transform hover:scale-110 font-bold pointer-events-auto"
             title="Настроить и фильтры"
           >
             <Edit3 size={16} />
