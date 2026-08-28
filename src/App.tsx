@@ -66,6 +66,7 @@ export default function App() {
   const [heroPhotoId, setHeroPhotoId] = useState<string>('photo-7');
   const [stickers, setStickers] = useState<StickerItem[]>(INITIAL_STICKERS);
   const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
+  const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null);
 
   const [textConfig, setTextConfig] = useState<BirthdayTextConfig>({
     title: 'MixFoto',
@@ -200,6 +201,10 @@ export default function App() {
     }
   };
 
+  const handleUpdatePhoto = (id: string, updated: Partial<PhotoSlot>) => {
+    setAllPhotos((prev) => prev.map((p) => (p.id === id ? { ...p, ...updated } : p)));
+  };
+
   const handleSelectWish = (wish: string) => {
     setTextConfig((prev) => ({ ...prev, subtitle: wish }));
     soundFX.playPop();
@@ -244,9 +249,12 @@ export default function App() {
           textConfig={textConfig}
           stickers={stickers}
           selectedStickerId={selectedStickerId}
+          selectedPhotoId={selectedPhotoId}
           heroPhotoId={heroPhotoId}
           onSelectSticker={setSelectedStickerId}
+          onSelectPhoto={setSelectedPhotoId}
           onUpdateSticker={handleUpdateSticker}
+          onUpdatePhoto={handleUpdatePhoto}
           onRemoveSticker={handleRemoveSticker}
           onEditPhoto={(p) => setEditingPhoto(p)}
           onUploadPhoto={handleUploadSinglePhoto}

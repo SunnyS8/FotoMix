@@ -8,6 +8,7 @@ import {
 } from '../types';
 import { BACKGROUNDS } from '../data/templates';
 import { PhotoCard } from './PhotoCard';
+import { PhotoElement } from './PhotoElement';
 import { StickerElement } from './StickerElement';
 import { Sparkles, Crown, PartyPopper, Star, Flame } from 'lucide-react';
 
@@ -18,14 +19,28 @@ interface CollageCanvasProps {
   textConfig: BirthdayTextConfig;
   stickers: StickerItem[];
   selectedStickerId: string | null;
+  selectedPhotoId: string | null;
   heroPhotoId: string;
   onSelectSticker: (id: string | null) => void;
+  onSelectPhoto: (id: string | null) => void;
   onUpdateSticker: (id: string, updated: Partial<StickerItem>) => void;
+  onUpdatePhoto: (id: string, updated: Partial<PhotoSlot>) => void;
   onRemoveSticker: (id: string) => void;
   onEditPhoto: (photo: PhotoSlot) => void;
   onUploadPhoto: (id: string, file: File) => void;
   onSetHeroPhoto: (id: string) => void;
 }
+
+// Default spread position (% of canvas) for a photo in free layout
+const getFreeDefaultPos = (index: number, count: number) => {
+  const cols = count <= 1 ? 1 : count <= 4 ? 2 : count <= 9 ? 3 : 4;
+  const rows = Math.ceil(count / cols);
+  const col = index % cols;
+  const row = Math.floor(index / cols);
+  const x = cols === 1 ? 50 : 14 + (col / (cols - 1)) * 72;
+  const y = rows === 1 ? 50 : 16 + (row / (rows - 1)) * 68;
+  return { x, y };
+};
 
 export const CollageCanvas: React.FC<CollageCanvasProps> = ({
   photos,
@@ -34,13 +49,18 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
   textConfig,
   stickers,
   selectedStickerId,
+  selectedPhotoId,
   heroPhotoId,
   onSelectSticker,
+  onSelectPhoto,
   onUpdateSticker,
+  onUpdatePhoto,
   onRemoveSticker,
   onEditPhoto,
   onUploadPhoto,
+  onSetHeroPhoto,
 }) => {
+  const canvasRef = React.useRef<HTMLDivElement>(null);
   const currentBg = BACKGROUNDS.find((b) => b.id === background) || BACKGROUNDS[0];
 
   // Helper for font class
@@ -102,7 +122,11 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
   return (
     <div
       id="collage-export-target"
-      onClick={() => onSelectSticker(null)}
+      ref={canvasRef}
+      onClick={() => {
+        onSelectSticker(null);
+        onSelectPhoto(null);
+      }}
       className={`relative w-full max-w-5xl mx-auto min-h-[720px] rounded-3xl p-4 sm:p-7 shadow-2xl overflow-hidden transition-all duration-500 select-none ${currentBg.class}`}
       style={{
         boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(245, 158, 11, 0.15)',
@@ -369,6 +393,30 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
           </div>
         )}
       </div>
+
+        {/* LAYOUT 7: FREE PLACEMENT (user-dragged photos) */}
+        {layout === 'free' && (
+          <div className="absolute inset-0 z-10 pointer-events-none">
+            {photos.map((photo, i) => {
+              const pos = photo.x == null || photo.y == null
+                ? getFreeDefaultPos(i, photos.length)
+                : { x: photo.x, y: photo.y };
+              return (
+                <PhotoElement
+                  key={photo.id}
+                  photo={{ ...photo, x: pos.x, y: pos.y }}
+                  isSelected={selectedPhotoId === photo.id}
+                  isHero={photo.id === heroPhotoId}
+                  onSelect={() => onSelectPhoto(photo.id)}
+                  onUpdate={(updated) => onUpdatePhoto(photo.id, updated)}
+                  onEdit={onEditPhoto}
+                  onSetHero={onSetHeroPhoto}
+                  onBringToFront={(id) => onUpdatePhoto(id, { zIndex: 100 })}
+                />
+              );
+            })}
+          </div>
+        )}
 
       {/* Draggable & Positionable Stickers Layer */}
       <div className="absolute inset-0 pointer-events-none z-40 overflow-hidden">

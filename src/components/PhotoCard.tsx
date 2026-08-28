@@ -72,6 +72,8 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
         return isHero
           ? 'bg-gradient-to-b from-amber-400/30 to-slate-900/90 p-2.5 rounded-2xl border-3 border-amber-400 shadow-2xl shadow-amber-500/30'
           : 'bg-slate-900/90 p-2 rounded-xl border border-amber-500/30 shadow-md hover:border-amber-400/70 transition-all';
+      case 'free':
+        return 'bg-slate-900/90 p-2 rounded-2xl border-2 border-amber-400/60 shadow-xl shadow-amber-500/20';
     }
   };
 
@@ -143,6 +145,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
           <button
             type="button"
             id={`btn-upload-${photo.id}`}
+            onPointerDown={(e) => e.stopPropagation()}
             onClick={() => fileInputRef.current?.click()}
             className="p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-full shadow-lg transition-transform hover:scale-110 font-bold"
             title="Загрузить фото"
@@ -152,6 +155,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
           <button
             type="button"
             id={`btn-edit-${photo.id}`}
+            onPointerDown={(e) => e.stopPropagation()}
             onClick={() => onEdit(photo)}
             className="p-2 bg-white hover:bg-slate-100 text-slate-900 rounded-full shadow-lg transition-transform hover:scale-110 font-bold"
             title="Настроить и фильтры"

@@ -49,6 +49,14 @@ export const THEMES: CollageTheme[] = [
     defaultBg: 'blue-sparkles',
     frameStyle: 'polaroid',
   },
+  {
+    id: 'free',
+    name: 'Свободное размещение',
+    icon: 'Move',
+    description: 'Расставьте фото вручную: перетаскивайте, вращайте и масштабируйте прямо на холсте',
+    defaultBg: 'dark-gold',
+    frameStyle: 'gold-border',
+  },
 ];
 
 export const BACKGROUNDS: { id: BackgroundStyle; name: string; class: string; preview: string }[] = [

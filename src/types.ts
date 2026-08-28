@@ -7,6 +7,11 @@ export interface PhotoSlot {
   offsetX: number;
   offsetY: number;
   filter: 'none' | 'vivid' | 'warm' | 'vintage' | 'bw' | 'festive' | 'soft';
+  // Free-layout placement (percent of canvas, 0-100)
+  x?: number;
+  y?: number;
+  scale?: number; // size multiplier in free layout (default 1)
+  zIndex?: number; // stacking order in free layout
 }
 
 // Selectable number of photos in the collage
@@ -45,7 +50,8 @@ export type LayoutStyle =
   | 'magazine'      // Trendy magazine cover with Maxim as the star
   | 'comic-fun'     // Fun pop-art celebration style with badges
   | 'mosaic-hero'   // Big central hero photo + 6 surrounding festive vignettes
-  | 'polaroid-wall'; // Tilted polaroids on a celebratory backdrop
+  | 'polaroid-wall' // Tilted polaroids on a celebratory backdrop
+  | 'free';         // User-placed photos: drag, rotate & scale on the canvas
 
 export type BackgroundStyle = 
   | 'dark-gold'

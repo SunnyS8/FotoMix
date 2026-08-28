@@ -15,6 +15,7 @@ import {
   Flame,
   Zap,
   Image as ImageIcon,
+  Move,
 } from 'lucide-react';
 
 interface ToolbarProps {
@@ -60,6 +61,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         return <PartyPopper size={16} />;
       case 'Zap':
         return <Zap size={16} />;
+      case 'Move':
+        return <Move size={16} />;
       case 'Image':
       default:
         return <ImageIcon size={16} />;
@@ -171,7 +174,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-1.5">
             {THEMES.map((th) => (
               <button
                 key={th.id}
