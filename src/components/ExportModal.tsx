@@ -21,8 +21,8 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   layout = 'mosaic-hero',
   background = 'dark-gold',
   textConfig = {
-    title: 'С днем рождения Максим!',
-    subtitle: '',
+    title: 'MixFoto',
+    subtitle: 'Создай коллаж к празднику',
     fontFamily: 'Russo One',
     titleColor: '#f59e0b',
     titleGradient: '',
@@ -95,7 +95,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     });
 
     const link = document.createElement('a');
-    link.download = `С_Днем_Рождения_Максим_Коллаж.${format}`;
+    link.download = `MixFoto_Коллаж.${format}`;
     link.href = url;
     document.body.appendChild(link);
     link.click();
@@ -114,7 +114,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
       printWindow.document.write(`
         <html>
           <head>
-            <title>Печать: С днем рождения Максим!</title>
+              <title>Печать: MixFoto</title>
             <style>
               body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #000; }
               img { max-width: 100%; max-height: 100vh; object-fit: contain; }
@@ -172,8 +172,8 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           <div className="flex items-center gap-2">
             <Sparkles size={22} className="text-amber-400" />
             <div>
-              <h3 className="text-lg font-bold text-white">Готовый праздничный коллаж</h3>
-              <p className="text-xs text-amber-200/80">Высокое качество для печати и отправки имениннику</p>
+              <h3 className="text-lg font-bold text-white">MixFoto</h3>
+              <p className="text-xs text-amber-200/80">Создай коллаж к празднику</p>
             </div>
           </div>
           <button

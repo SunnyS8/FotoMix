@@ -122,7 +122,7 @@ export async function renderCollageDirectCanvas(
   ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
   ctx.shadowBlur = 25;
   ctx.fillStyle = titleGrad;
-  ctx.fillText(data.textConfig.title || 'С днем рождения Максим!', width / 2, titleY);
+  ctx.fillText(data.textConfig.title || 'MixFoto', width / 2, titleY);
   ctx.shadowBlur = 0; // reset
 
   // Subtitle
@@ -286,7 +286,7 @@ export async function renderCollageDirectCanvas(
   ctx.font = 'bold 18px "Montserrat", sans-serif';
   ctx.fillStyle = 'rgba(253, 230, 138, 0.7)';
   ctx.textAlign = 'center';
-  ctx.fillText('★ Праздничный коллаж • С днем рождения Максим! ★', width / 2, height - 35);
+  ctx.fillText('★ MixFoto • Создай коллаж к празднику ★', width / 2, height - 35);
 
   return canvas.toDataURL('image/png', 0.98);
 }

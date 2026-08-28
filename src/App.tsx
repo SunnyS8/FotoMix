@@ -33,8 +33,8 @@ export default function App() {
   const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
 
   const [textConfig, setTextConfig] = useState<BirthdayTextConfig>({
-    title: 'С днем рождения Максим!',
-    subtitle: 'Пусть каждый день будет наполнен крутыми приключениями, радостью и победами! 🚀',
+    title: 'MixFoto',
+    subtitle: 'Создай коллаж к празднику',
     fontFamily: 'Russo One',
     titleColor: '#f59e0b',
     titleGradient: 'from-amber-200 via-yellow-300 to-amber-500',
