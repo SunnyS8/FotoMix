@@ -1,0 +1,6 @@
+{
+  "name": "Праздничный коллаж — С днем рождения Максим!",
+  "description": "Создание ярких праздничных фотоколлажей с поздравлением для Максима, стикерами, рамками и скачиванием в высоком качестве.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

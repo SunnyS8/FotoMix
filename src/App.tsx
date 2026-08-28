@@ -1,0 +1,267 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti';
+import {
+  PhotoSlot,
+  StickerItem,
+  BirthdayTextConfig,
+  LayoutStyle,
+  BackgroundStyle,
+} from './types';
+import { DEFAULT_PHOTOS } from './data/defaultPhotos';
+import { INITIAL_STICKERS, THEMES } from './data/templates';
+import { CollageCanvas } from './components/CollageCanvas';
+import { Toolbar } from './components/Toolbar';
+import { PhotoEditorModal } from './components/PhotoEditorModal';
+import { StickerPickerModal } from './components/StickerPickerModal';
+import { TextConfigModal } from './components/TextConfigModal';
+import { WishesModal } from './components/WishesModal';
+import { ExportModal } from './components/ExportModal';
+import { soundFX } from './utils/sound';
+import { Sparkles, HelpCircle, Heart } from 'lucide-react';
+
+export default function App() {
+  const [photos, setPhotos] = useState<PhotoSlot[]>(DEFAULT_PHOTOS);
+  const [layout, setLayout] = useState<LayoutStyle>('mosaic-hero');
+  const [background, setBackground] = useState<BackgroundStyle>('dark-gold');
+  const [heroPhotoId, setHeroPhotoId] = useState<string>('photo-7');
+  const [stickers, setStickers] = useState<StickerItem[]>(INITIAL_STICKERS);
+  const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
+
+  const [textConfig, setTextConfig] = useState<BirthdayTextConfig>({
+    title: 'С днем рождения Максим!',
+    subtitle: 'Пусть каждый день будет наполнен крутыми приключениями, радостью и победами! 🚀',
+    fontFamily: 'Russo One',
+    titleColor: '#f59e0b',
+    titleGradient: 'from-amber-200 via-yellow-300 to-amber-500',
+    subtitleColor: '#fef3c7',
+    size: 'large',
+    effect: 'gold',
+    align: 'center',
+    badgeText: 'ГЛАВНЫЙ ИМЕНИННИК ГОДА 👑',
+  });
+
+  // Modals state
+  const [editingPhoto, setEditingPhoto] = useState<PhotoSlot | null>(null);
+  const [isStickersOpen, setIsStickersOpen] = useState(false);
+  const [isTextConfigOpen, setIsTextConfigOpen] = useState(false);
+  const [isWishesOpen, setIsWishesOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
+
+  // Trigger celebration confetti on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
+      });
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const triggerConfettiCannon = () => {
+    soundFX.playFanfare();
+    confetti({
+      particleCount: 100,
+      spread: 90,
+      origin: { y: 0.5 },
+    });
+  };
+
+  const handleUploadSinglePhoto = (id: string, file: File) => {
+    const url = URL.createObjectURL(file);
+    setPhotos((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, url } : p))
+    );
+    soundFX.playPop();
+  };
+
+  const handleBatchUpload = (files: FileList) => {
+    const fileArray = Array.from(files);
+    setPhotos((prev) => {
+      return prev.map((p, idx) => {
+        if (fileArray[idx]) {
+          return {
+            ...p,
+            url: URL.createObjectURL(fileArray[idx]),
+          };
+        }
+        return p;
+      });
+    });
+
+    soundFX.playFanfare();
+    confetti({
+      particleCount: 60,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  };
+
+  const handleSavePhotoEdits = (updated: PhotoSlot) => {
+    setPhotos((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    soundFX.playPop();
+  };
+
+  const handleAddEmojiSticker = (emoji: string) => {
+    const newSticker: StickerItem = {
+      id: `stk-${Date.now()}`,
+      type: 'emoji',
+      content: emoji,
+      x: 50 + (Math.random() * 20 - 10),
+      y: 50 + (Math.random() * 20 - 10),
+      size: 48,
+      rotation: Math.round(Math.random() * 30 - 15),
+      zIndex: 40,
+    };
+    setStickers((prev) => [...prev, newSticker]);
+    setSelectedStickerId(newSticker.id);
+    soundFX.playPop();
+  };
+
+  const handleAddBadgeSticker = (badgeText: string) => {
+    const newSticker: StickerItem = {
+      id: `stk-${Date.now()}`,
+      type: 'badge',
+      content: badgeText,
+      x: 50,
+      y: 85,
+      size: 16,
+      rotation: 0,
+      zIndex: 45,
+    };
+    setStickers((prev) => [...prev, newSticker]);
+    setSelectedStickerId(newSticker.id);
+    soundFX.playPop();
+  };
+
+  const handleUpdateSticker = (id: string, updated: Partial<StickerItem>) => {
+    setStickers((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, ...updated } : s))
+    );
+  };
+
+  const handleRemoveSticker = (id: string) => {
+    setStickers((prev) => prev.filter((s) => s.id !== id));
+    if (selectedStickerId === id) {
+      setSelectedStickerId(null);
+    }
+  };
+
+  const handleSelectWish = (wish: string) => {
+    setTextConfig((prev) => ({ ...prev, subtitle: wish }));
+    soundFX.playPop();
+  };
+
+  const handleLayoutChange = (newLayout: LayoutStyle) => {
+    setLayout(newLayout);
+    const theme = THEMES.find((t) => t.id === newLayout);
+    if (theme) {
+      setBackground(theme.defaultBg);
+    }
+    soundFX.playPop();
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 p-3 sm:p-6 md:p-8 flex flex-col items-center selection:bg-amber-500 selection:text-slate-950 font-sans">
+      {/* Top Toolbar */}
+      <Toolbar
+        layout={layout}
+        background={background}
+        onChangeLayout={handleLayoutChange}
+        onChangeBackground={setBackground}
+        onOpenStickers={() => setIsStickersOpen(true)}
+        onOpenTextConfig={() => setIsTextConfigOpen(true)}
+        onOpenWishes={() => setIsWishesOpen(true)}
+        onOpenExport={() => setIsExportOpen(true)}
+        onTriggerConfetti={triggerConfettiCannon}
+        onBatchUpload={handleBatchUpload}
+      />
+
+      {/* Main Interactive Collage Canvas */}
+      <main className="w-full flex justify-center">
+        <CollageCanvas
+          photos={photos}
+          layout={layout}
+          background={background}
+          textConfig={textConfig}
+          stickers={stickers}
+          selectedStickerId={selectedStickerId}
+          heroPhotoId={heroPhotoId}
+          onSelectSticker={setSelectedStickerId}
+          onUpdateSticker={handleUpdateSticker}
+          onRemoveSticker={handleRemoveSticker}
+          onEditPhoto={(p) => setEditingPhoto(p)}
+          onUploadPhoto={handleUploadSinglePhoto}
+          onSetHeroPhoto={(id) => setHeroPhotoId(id)}
+        />
+      </main>
+
+      {/* Quick Helper Tips */}
+      <footer className="w-full max-w-5xl mt-6 text-center text-xs text-slate-400 flex flex-wrap items-center justify-center gap-4 py-3 border-t border-slate-900">
+        <span className="flex items-center gap-1.5 text-amber-300/80">
+          <Sparkles size={14} /> Наведите на любое фото для замены или настройки фильтров
+        </span>
+        <span>•</span>
+        <span className="flex items-center gap-1.5 text-slate-300">
+          Стикеры можно перетаскивать по холсту, вращать и масштабировать
+        </span>
+      </footer>
+
+      {/* Modals */}
+      {editingPhoto && (
+        <PhotoEditorModal
+          photo={editingPhoto}
+          isHero={heroPhotoId === editingPhoto.id}
+          onClose={() => setEditingPhoto(null)}
+          onSave={handleSavePhotoEdits}
+          onSetHero={(id) => setHeroPhotoId(id)}
+          onUploadNew={handleUploadSinglePhoto}
+        />
+      )}
+
+      {isStickersOpen && (
+        <StickerPickerModal
+          onClose={() => setIsStickersOpen(false)}
+          onAddEmoji={handleAddEmojiSticker}
+          onAddBadge={handleAddBadgeSticker}
+        />
+      )}
+
+      {isTextConfigOpen && (
+        <TextConfigModal
+          config={textConfig}
+          onClose={() => setIsTextConfigOpen(false)}
+          onSave={(cfg) => {
+            setTextConfig(cfg);
+            soundFX.playPop();
+          }}
+        />
+      )}
+
+      {isWishesOpen && (
+        <WishesModal
+          onClose={() => setIsWishesOpen(false)}
+          onSelectWish={handleSelectWish}
+        />
+      )}
+
+      {isExportOpen && (
+        <ExportModal
+          onClose={() => setIsExportOpen(false)}
+          photos={photos}
+          layout={layout}
+          background={background}
+          textConfig={textConfig}
+          stickers={stickers}
+          heroPhotoId={heroPhotoId}
+        />
+      )}
+    </div>
+  );
+}
