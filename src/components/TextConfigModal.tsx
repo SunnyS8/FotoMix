@@ -120,6 +120,34 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
           </div>
         </div>
 
+        {/* Footer lines */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+              Подпись слева (в подвале):
+            </label>
+            <input
+              type="text"
+              value={current.footerLeft}
+              onChange={(e) => setCurrent((prev) => ({ ...prev, footerLeft: e.target.value }))}
+              placeholder="Праздник в кругу самых близких и любимых"
+              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-400"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+              Подпись справа (в подвале):
+            </label>
+            <input
+              type="text"
+              value={current.footerRight}
+              onChange={(e) => setCurrent((prev) => ({ ...prev, footerRight: e.target.value }))}
+              placeholder="С любовью и радостью! 🎉"
+              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-400"
+            />
+          </div>
+        </div>
+
         {/* Font Family Selection */}
         <div>
           <label className="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">

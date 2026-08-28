@@ -55,6 +55,8 @@ export default function App() {
     effect: 'gold',
     align: 'center',
     badgeText: 'ГЛАВНЫЙ ИМЕНИННИК ГОДА 👑',
+    footerLeft: 'Праздник в кругу самых близких и любимых',
+    footerRight: 'С любовью и радостью! 🎉',
   });
 
   // Modals state

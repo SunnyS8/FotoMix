@@ -282,11 +282,17 @@ export async function renderCollageDirectCanvas(
     ctx.restore();
   }
 
-  // Bottom footer text
+  // Bottom footer text (editable left/right lines)
+  const footerLeft = data.textConfig.footerLeft || 'Праздник в кругу самых близких и любимых';
+  const footerRight = data.textConfig.footerRight || 'С любовью и радостью! 🎉';
   ctx.font = 'bold 18px "Montserrat", sans-serif';
   ctx.fillStyle = 'rgba(253, 230, 138, 0.7)';
+  const footerY = height - 35;
+  ctx.textAlign = 'left';
+  ctx.fillText(footerLeft, 60, footerY);
+  ctx.textAlign = 'right';
+  ctx.fillText(footerRight, width - 60, footerY);
   ctx.textAlign = 'center';
-  ctx.fillText('★ MixFoto • Создай коллаж к празднику ★', width / 2, height - 35);
 
   return canvas.toDataURL('image/png', 0.98);
 }

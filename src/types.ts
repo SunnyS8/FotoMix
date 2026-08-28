@@ -31,6 +31,8 @@ export interface BirthdayTextConfig {
   effect: 'glow' | 'shadow' | 'gold' | 'neon' | '3d' | 'flat';
   align: 'center' | 'left' | 'right';
   badgeText: string;
+  footerLeft: string;
+  footerRight: string;
 }
 
 export type LayoutStyle = 

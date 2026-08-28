@@ -412,15 +412,15 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
       </div>
 
       {/* Bottom festive watermark / date */}
-      <div className="relative z-20 mt-6 pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-amber-200/70">
-        <div className="flex items-center gap-1.5">
-          <Star size={14} className="text-amber-400" />
-          <span>Праздник в кругу самых близких и любимых</span>
+        <div className="relative z-20 mt-6 pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-amber-200/70">
+          <div className="flex items-center gap-1.5">
+            <Star size={14} className="text-amber-400" />
+            <span>{textConfig.footerLeft || 'Праздник в кругу самых близких и любимых'}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>{textConfig.footerRight || 'С любовью и радостью! 🎉'}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span>С любовью и радостью! 🎉</span>
-        </div>
-      </div>
     </div>
   );
 };

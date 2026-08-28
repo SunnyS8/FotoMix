@@ -31,6 +31,8 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     effect: 'gold' as const,
     align: 'center' as const,
     badgeText: 'ГЛАВНЫЙ ИМЕНИННИК ГОДА 👑',
+    footerLeft: 'Праздник в кругу самых близких и любимых',
+    footerRight: 'С любовью и радостью! 🎉',
   },
   stickers = [],
   heroPhotoId = 'photo-7',
