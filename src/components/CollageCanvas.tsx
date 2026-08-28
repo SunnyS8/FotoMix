@@ -168,7 +168,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
       </div>
 
       {/* Main Festive Header Banner */}
-      <div className="relative z-20 text-center mb-6 px-2">
+      <div className="relative z-20 text-center mb-6 px-2 pointer-events-none">
         {textConfig.badgeText && (
           <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500/30 via-yellow-500/20 to-amber-500/30 border border-amber-400/50 backdrop-blur-md text-amber-200 text-xs sm:text-sm font-bold tracking-widest uppercase mb-2 shadow-lg">
             <Sparkles size={14} className="text-amber-400 animate-spin" />

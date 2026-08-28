@@ -81,6 +81,7 @@ export const PhotoElement: React.FC<PhotoElementProps> = ({
   };
 
   const scale = photo.scale ?? 1;
+  const controlsBelow = (photo.y ?? 50) < 18;
 
   return (
     <div
@@ -114,7 +115,9 @@ export const PhotoElement: React.FC<PhotoElementProps> = ({
       {/* Floating mini-controls when selected */}
       {isSelected && (
         <div
-          className="absolute -top-11 left-1/2 -translate-x-1/2 flex items-center gap-0.5 bg-slate-950/90 text-white px-2 py-1 rounded-full border border-amber-500/50 shadow-2xl backdrop-blur-md z-50 pointer-events-auto"
+          className={`absolute left-1/2 -translate-x-1/2 flex items-center gap-0.5 bg-slate-950/90 text-white px-2 py-1 rounded-full border border-amber-500/50 shadow-2xl backdrop-blur-md z-50 pointer-events-auto ${
+            controlsBelow ? 'top-auto -bottom-11' : '-top-11'
+          }`}
           onPointerDown={(e) => e.stopPropagation()}
         >
           <button type="button" onClick={rotate(-15)} className="p-1 hover:bg-white/20 rounded-full" title="Повернуть влево">
