@@ -291,22 +291,63 @@ export async function renderCollageDirectCanvas(
   return canvas.toDataURL('image/png', 0.98);
 }
 
+// Waits until all web fonts are loaded so the captured text does not reflow/blank
+async function ensureFontsReady(): Promise<void> {
+  try {
+    if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+      await document.fonts.ready;
+    }
+  } catch {
+    /* fonts API unavailable — ignore */
+  }
+}
+
+// Computes the FULL on-screen size of the element (including content that may
+// overflow the visible box) so the exported image is never cropped.
+function getElementFullSize(el: HTMLElement): { width: number; height: number } {
+  const width = Math.max(el.scrollWidth, el.offsetWidth, el.clientWidth);
+  const height = Math.max(el.scrollHeight, el.offsetHeight, el.clientHeight);
+  return { width, height };
+}
+
 // Master exporter with multi-stage fallback (html-to-image -> html2canvas -> directCanvas)
 export async function exportCollageImage(
   targetElementId: string,
   format: 'png' | 'jpeg',
   fallbackData?: CollageExportData
 ): Promise<string> {
-  const target = document.getElementById(targetElementId);
+  const target = document.getElementById(targetElementId) as HTMLElement | null;
+
+  // Make sure fonts are embedded before we snapshot the DOM.
+  await ensureFontsReady();
+
+  const exportBg = '#090d16';
 
   // Strategy 1: Modern html-to-image (handles SVG, web fonts, modern CSS)
   if (target) {
     try {
+      const { width, height } = getElementFullSize(target);
       const options = {
-        quality: 0.98,
+        // Capture the ENTIRE element, not just the visible/clipped box.
+        width,
+        height,
         pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#090d16',
+        // IMPORTANT: cacheBust appends ?<rand> to every URL, which INVALIDATES
+        // uploaded blob: images and CORS-locked photos, leaving them blank.
+        cacheBust: false,
+        // Skip re-downloading/embedding remote assets that fail — keep local
+        // blob: photos intact instead of dropping them.
+        skipFonts: false,
+        backgroundColor: exportBg,
+        style: {
+          transform: 'none',
+          margin: '0',
+          // Pin the clone to the real content size so nothing is cut off.
+          width: `${width}px`,
+          height: `${height}px`,
+          maxWidth: `${width}px`,
+          maxHeight: `${height}px`,
+        },
       };
       if (format === 'jpeg') {
         return await toJpeg(target, options);
@@ -317,14 +358,20 @@ export async function exportCollageImage(
     }
   }
 
-  // Strategy 2: html2canvas with sanitized clone
+  // Strategy 2: html2canvas with explicit full-size capture
   if (target) {
     try {
+      const { width, height } = getElementFullSize(target);
       const canvas = await html2canvas(target, {
         scale: 2,
+        // Render the full element, not the viewport-sized slice.
+        width,
+        height,
+        windowWidth: width,
+        windowHeight: height,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#090d16',
+        backgroundColor: exportBg,
         logging: false,
       });
       const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
