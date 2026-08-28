@@ -82,7 +82,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           </div>
           <div>
             <h2 className="text-base font-black text-slate-800 tracking-wide">
-              Праздничный Коллаж
+              MixFoto
             </h2>
             <p className="text-xs text-amber-600 font-medium">
               Праздничный коллаж • {photoCount} памятных фото
