@@ -35,7 +35,10 @@ export const StickerElement: React.FC<StickerElementProps> = ({
       initialX: sticker.x,
       initialY: sticker.y,
     };
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    // Capture on the element that owns the move/up handlers (currentTarget),
+    // NOT on e.target (the inner emoji/badge child), otherwise move events
+    // are routed to the child and dragging silently fails.
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
@@ -87,6 +90,7 @@ export const StickerElement: React.FC<StickerElementProps> = ({
         top: `${sticker.y}%`,
         transform: `translate(-50%, -50%) rotate(${sticker.rotation}deg)`,
         zIndex: sticker.zIndex + (isSelected ? 50 : 0),
+        touchAction: 'none',
       }}
       className={`absolute cursor-move select-none transition-shadow ${
         isSelected ? 'ring-2 ring-amber-400 ring-offset-2 ring-offset-slate-900 rounded-lg' : ''
@@ -94,6 +98,7 @@ export const StickerElement: React.FC<StickerElementProps> = ({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onClick={(e) => e.stopPropagation()}
     >
       {sticker.type === 'badge' ? (
         <div
