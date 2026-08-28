@@ -16,12 +16,12 @@ export const TextConfigModal: React.FC<TextConfigModalProps> = ({
   const [current, setCurrent] = useState<BirthdayTextConfig>({ ...config });
 
   const fontOptions = [
-    { name: 'Russo One (Мощный & Торжественный)', family: 'Russo One' },
-    { name: 'Pacifico (Праздничный курсив)', family: 'Pacifico' },
-    { name: 'Marck Script (Элегантный почерк)', family: 'Marck Script' },
-    { name: 'Montserrat (Современный стиль)', family: 'Montserrat' },
+    { name: 'Montserrat (Современный & Чистый)', family: 'Montserrat' },
+    { name: 'Rubik (Геометричный & Тёплый)', family: 'Rubik' },
+    { name: 'Unbounded (Современный дисплей)', family: 'Unbounded' },
+    { name: 'Manrope (Технологичный)', family: 'Manrope' },
+    { name: 'Nunito (Мягкий & Дружелюбный)', family: 'Nunito' },
     { name: 'Comfortaa (Округлый & Добрый)', family: 'Comfortaa' },
-    { name: 'Caveat (Живой & Дружеский)', family: 'Caveat' },
   ];
 
   const effects: { id: BirthdayTextConfig['effect']; name: string; icon: string }[] = [

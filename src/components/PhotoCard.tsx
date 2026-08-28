@@ -175,7 +175,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
         {layout === 'scrapbook' || layout === 'polaroid-wall' ? (
           <p
             className="text-xs sm:text-sm font-bold text-slate-800 tracking-wide line-clamp-1"
-            style={{ fontFamily: "'Caveat', cursive, sans-serif", fontSize: '15px' }}
+            style={{ fontFamily: "'Comfortaa', cursive, sans-serif", fontSize: '15px' }}
           >
             {photo.caption || `Праздник ❤️`}
           </p>

@@ -46,16 +46,16 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
   // Helper for font class
   const getFontFamily = () => {
     switch (textConfig.fontFamily) {
-      case 'Russo One':
-        return "'Russo One', sans-serif";
-      case 'Pacifico':
-        return "'Pacifico', cursive";
-      case 'Marck Script':
-        return "'Marck Script', cursive";
+      case 'Rubik':
+        return "'Rubik', sans-serif";
+      case 'Unbounded':
+        return "'Unbounded', sans-serif";
       case 'Comfortaa':
         return "'Comfortaa', cursive";
-      case 'Caveat':
-        return "'Caveat', cursive";
+      case 'Nunito':
+        return "'Nunito', sans-serif";
+      case 'Manrope':
+        return "'Manrope', sans-serif";
       case 'Montserrat':
       default:
         return "'Montserrat', sans-serif";

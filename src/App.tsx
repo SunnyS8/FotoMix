@@ -47,7 +47,7 @@ export default function App() {
   const [textConfig, setTextConfig] = useState<BirthdayTextConfig>({
     title: 'MixFoto',
     subtitle: 'Создай коллаж к празднику',
-    fontFamily: 'Russo One',
+    fontFamily: 'Montserrat',
     titleColor: '#f59e0b',
     titleGradient: 'from-amber-200 via-yellow-300 to-amber-500',
     subtitleColor: '#fef3c7',

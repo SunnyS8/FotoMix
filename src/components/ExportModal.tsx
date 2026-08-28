@@ -23,7 +23,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   textConfig = {
     title: 'MixFoto',
     subtitle: 'Создай коллаж к празднику',
-    fontFamily: 'Russo One',
+    fontFamily: 'Montserrat',
     titleColor: '#f59e0b',
     titleGradient: '',
     subtitleColor: '#fef3c7',

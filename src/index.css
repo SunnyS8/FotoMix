@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
