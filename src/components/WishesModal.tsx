@@ -29,7 +29,7 @@ export const WishesModal: React.FC<WishesModalProps> = ({
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
             <Heart size={20} className="text-rose-400 fill-rose-400/30" />
-            <h3 className="text-lg font-bold text-white">Праздничные поздравления для Максима</h3>
+            <h3 className="text-lg font-bold text-white">Праздничные поздравления</h3>
           </div>
           <button
             type="button"

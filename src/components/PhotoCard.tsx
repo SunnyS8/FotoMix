@@ -26,7 +26,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
     bg: 'from-amber-600 to-indigo-900',
     icon: '📸',
     title: `Фото #${index + 1}`,
-    accent: 'Максим',
+    accent: 'Герой дня',
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +113,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
           >
             <img
               src={photo.url}
-              alt={photo.caption || `Фото Максима #${index + 1}`}
+              alt={photo.caption || `Фото #${index + 1}`}
               crossOrigin="anonymous"
               referrerPolicy="no-referrer"
               className={`w-full h-full object-cover select-none pointer-events-none ${getFilterStyle(photo.filter)}`}
@@ -177,7 +177,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({
             className="text-xs sm:text-sm font-bold text-slate-800 tracking-wide line-clamp-1"
             style={{ fontFamily: "'Caveat', cursive, sans-serif", fontSize: '15px' }}
           >
-            {photo.caption || `Праздник Максима ❤️`}
+            {photo.caption || `Праздник ❤️`}
           </p>
         ) : (
           <p className="text-[11px] sm:text-xs font-medium text-amber-200/90 line-clamp-1">

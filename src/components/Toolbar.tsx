@@ -81,7 +81,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               Праздничный Коллаж
             </h2>
             <p className="text-xs text-amber-300/80 font-medium">
-              С днем рождения Максим! • 7 памятных фото
+              Праздничный коллаж • 7 памятных фото
             </p>
           </div>
         </div>
@@ -195,7 +195,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               type="button"
               onClick={onOpenWishes}
               className="p-2 rounded-xl bg-slate-950/70 hover:bg-slate-800 text-slate-200 border border-slate-800 flex flex-col items-center justify-center gap-1 transition-colors text-xs font-bold"
-              title="Готовые пожелания для Максима"
+              title="Готовые пожелания"
             >
               <Heart size={15} className="text-rose-400" />
               <span className="text-[10px]">Пожелания</span>

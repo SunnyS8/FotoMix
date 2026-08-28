@@ -78,7 +78,7 @@ export const PHOTO_PLACEHOLDERS: Record<string, { bg: string; icon: string; titl
   'photo-1': {
     bg: 'from-amber-700 via-orange-800 to-red-950',
     icon: '🍕',
-    title: 'Максим и пицца',
+    title: 'Вкусная пицца',
     accent: 'Шапка Сахалин 🇷🇺',
   },
   'photo-2': {
@@ -90,7 +90,7 @@ export const PHOTO_PLACEHOLDERS: Record<string, { bg: string; icon: string; titl
   'photo-3': {
     bg: 'from-blue-700 via-indigo-900 to-slate-950',
     icon: '🚀',
-    title: 'Озорной Максим',
+    title: 'Озорной момент',
     accent: 'Позитив на 100% ✨',
   },
   'photo-4': {
@@ -114,7 +114,7 @@ export const PHOTO_PLACEHOLDERS: Record<string, { bg: string; icon: string; titl
   'photo-7': {
     bg: 'from-amber-800 via-yellow-900 to-neutral-950',
     icon: '⭐',
-    title: 'Стильный Максим',
+    title: 'Стильный кадр',
     accent: 'Converse All Star 🎸',
   },
 };

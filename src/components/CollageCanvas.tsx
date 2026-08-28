@@ -285,7 +285,7 @@ export const CollageCanvas: React.FC<CollageCanvasProps> = ({
                 №1 В МИРЕ ПРАЗДНИКОВ
               </span>
               <span className="text-xs font-black text-amber-400 tracking-wider">
-                MAXIM BIRTHDAY
+                BIRTHDAY COLLAGE
               </span>
             </div>
 
