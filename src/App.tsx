@@ -69,8 +69,8 @@ export default function App() {
   const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null);
 
   const [textConfig, setTextConfig] = useState<BirthdayTextConfig>({
-    title: 'MixFoto',
-    subtitle: 'Создай коллаж к празднику',
+    title: '',
+    subtitle: '',
     fontFamily: 'Montserrat',
     titleColor: '#f59e0b',
     titleGradient: 'from-amber-200 via-yellow-300 to-amber-500',
@@ -78,9 +78,9 @@ export default function App() {
     size: 'large',
     effect: 'gold',
     align: 'center',
-    badgeText: 'ГЛАВНЫЙ ИМЕНИННИК ГОДА 👑',
-    footerLeft: 'Праздник в кругу самых близких и любимых',
-    footerRight: 'С любовью и радостью! 🎉',
+    badgeText: '',
+    footerLeft: '',
+    footerRight: '',
   });
 
   // Modals state
