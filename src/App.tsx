@@ -24,6 +24,18 @@ import { ExportModal } from './components/ExportModal';
 import { soundFX } from './utils/sound';
 import { Sparkles, HelpCircle, Heart } from 'lucide-react';
 
+// Derives a human-readable caption from an uploaded file name
+// (strips extension, turns _ - . into spaces, capitalizes first letter).
+function captionFromFileName(file: File): string {
+  const name = file.name.replace(/\.[^.]+$/, '');
+  const cleaned = name
+    .replace(/[_.\-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!cleaned) return '';
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
 export default function App() {
   const [photos, setPhotos] = useState<PhotoSlot[]>(DEFAULT_PHOTOS);
   const [layout, setLayout] = useState<LayoutStyle>('mosaic-hero');
@@ -76,7 +88,7 @@ export default function App() {
   const handleUploadSinglePhoto = (id: string, file: File) => {
     const url = URL.createObjectURL(file);
     setPhotos((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, url } : p))
+      prev.map((p) => (p.id === id ? { ...p, url, caption: captionFromFileName(file) } : p))
     );
     soundFX.playPop();
   };
@@ -89,6 +101,7 @@ export default function App() {
           return {
             ...p,
             url: URL.createObjectURL(fileArray[idx]),
+            caption: captionFromFileName(fileArray[idx]),
           };
         }
         return p;
